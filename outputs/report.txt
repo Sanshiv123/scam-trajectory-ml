@@ -1,0 +1,112 @@
+NOTE: conversations are template-generated placeholders (no real LLM
+calls in this environment), but emotion features come from the actual
+pretrained classifier named in the proposal (j-hartmann/emotion-english-
+distilroberta-base), and the trajectory scorer is a real 1-layer GRU.
+Numbers below demonstrate the pipeline, not final findings.
+
+Opening-turn leakage check (scam vs. matched twin, first 2 turns, 5-fold CV accuracy): 0.470 (0.5 = no leakage, 1.0 = fully separable)
+
+--- classification (does a conversation's max running score separate scam from legitimate at all) ---
+
+=== position-only ===
+-- test (n=90) --  accuracy=0.500  f1=0.286  auc=0.500
+-- test_heldout_pattern (n=24) --  accuracy=0.500  f1=0.143  auc=0.500
+-- test_heldout_llm (n=24) --  accuracy=0.500  f1=0.250  auc=0.500
+-- test_heldout_both (n=24) --  accuracy=0.500  f1=0.250  auc=0.500
+
+=== message-level (emotion) ===
+-- test (n=90) --  accuracy=0.489  f1=0.042  auc=0.429
+-- test_heldout_pattern (n=24) --  accuracy=0.500  f1=0.000  auc=0.646
+-- test_heldout_llm (n=24) --  accuracy=0.417  f1=0.000  auc=0.365
+-- test_heldout_both (n=24) --  accuracy=0.500  f1=0.000  auc=0.649
+
+=== running aggregate ===
+-- test (n=90) --  accuracy=0.511  f1=0.043  auc=0.524
+-- test_heldout_pattern (n=24) --  accuracy=0.500  f1=0.143  auc=0.556
+-- test_heldout_llm (n=24) --  accuracy=0.458  f1=0.000  auc=0.472
+-- test_heldout_both (n=24) --  accuracy=0.500  f1=0.000  auc=0.569
+
+=== trajectory (emotion, GRU) ===
+-- test (n=90) --  accuracy=0.733  f1=0.667  auc=0.828
+-- test_heldout_pattern (n=24) --  accuracy=0.500  f1=0.000  auc=0.750
+-- test_heldout_llm (n=24) --  accuracy=0.708  f1=0.588  auc=0.910
+-- test_heldout_both (n=24) --  accuracy=0.500  f1=0.000  auc=0.757
+
+--- earliness (AT@FPR): does the score cross threshold BEFORE the harmful ask turn? ---
+
+[calibrated at 5% FPR on validation legitimate conversations]
+  position-only:
+    test: threshold=0.908  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_pattern: threshold=0.908  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_llm: threshold=0.908  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_both: threshold=0.908  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+  message-level (emotion):
+    test: threshold=0.803  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_pattern: threshold=0.803  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_llm: threshold=0.803  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_both: threshold=0.803  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+  running aggregate:
+    test: threshold=0.661  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_pattern: threshold=0.661  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_llm: threshold=0.661  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_both: threshold=0.661  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+  trajectory (emotion, GRU):
+    test: threshold=0.781  early_recall=9%  median_lead=1.0  late_or_never=91%  mean_lead_fraction=0.16666666666666666
+    test_heldout_pattern: threshold=0.781  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_llm: threshold=0.781  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_both: threshold=0.781  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+
+[calibrated at 10% FPR on validation legitimate conversations]
+  position-only:
+    test: threshold=0.908  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_pattern: threshold=0.908  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_llm: threshold=0.908  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_both: threshold=0.908  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+  message-level (emotion):
+    test: threshold=0.802  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_pattern: threshold=0.802  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_llm: threshold=0.802  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_both: threshold=0.802  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+  running aggregate:
+    test: threshold=0.655  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_pattern: threshold=0.655  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_llm: threshold=0.655  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_both: threshold=0.655  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+  trajectory (emotion, GRU):
+    test: threshold=0.633  early_recall=27%  median_lead=1.0  late_or_never=73%  mean_lead_fraction=0.21111111111111114
+    test_heldout_pattern: threshold=0.633  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_llm: threshold=0.633  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+    test_heldout_both: threshold=0.633  early_recall=0%  median_lead=None  late_or_never=100%  mean_lead_fraction=None
+
+FINDING 1 -- the three baselines (position-only, message-level,
+running aggregate) sit at or near chance on classification (AUC
+0.36-0.65 across splits) and never fire early: early_recall is 0% for
+all three, on every split, at both FPR targets we calibrated to (5%,
+10%).
+
+FINDING 2 -- the trajectory (GRU) model clearly separates scam from
+legitimate overall (AUC 0.75-0.91 across all four splits, beating every
+baseline everywhere), and on the in-distribution test split it now gets
+some real early signal too: early_recall=9% at the 5%-FPR threshold and
+27% at the 10%-FPR threshold (median lead of 1 turn when it does fire
+early). That's new since we added class-balanced loss (pos_weight) to
+the GRU's training -- without it, every scorer including the GRU showed
+0% early_recall everywhere.
+
+FINDING 3 -- that earliness doesn't generalize yet: on all three
+held-out splits (held-out pattern, held-out generator voice, both), the
+GRU's early_recall is still 0% even though its classification AUC on
+those same splits is high (0.75-0.91). So the model can tell held-out
+scam conversations apart from legitimate ones by the end of the
+conversation, but it hasn't learned to flag the *held-out* escalation
+pattern or generator voice before the harmful ask turn -- only for the
+pattern/voices it was trained on. Likely causes, worth investigating
+next: (1) our per-turn training label is 1 only at/after the ask turn,
+so the model gets no training signal that earlier urgency/authority
+turns in a *novel* pattern belong to the same kind of escalation; (2) in
+our template data, those earlier turns are still phrased calmly and
+professionally -- realistic, since a social engineer trying to sound
+legitimate doesn't sound alarmed, but it means the emotion classifier
+alone may not separate them from a matched twin's equivalent turns in a
+pattern the model hasn't seen before.
+
