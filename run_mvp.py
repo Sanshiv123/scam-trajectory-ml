@@ -52,10 +52,19 @@ def stack_train(conversations, feats_by_id):
     return X, y
 
 
-def main():
+def build_full_dataset():
+    # Pulled out of main() so other scripts (eval/feature_ablation.py,
+    # eval/text_scorers.py) that want the exact same data/split can call
+    # this instead of copy-pasting these 3 lines -- keeps every analysis
+    # trained and evaluated on the identical dataset and split.
     data = build_dataset()
     by_split = {s: [c for c in data if c.split == s]
                 for s in ["train", "val"] + SPLITS}
+    return data, by_split, None, None
+
+
+def main():
+    data, by_split, _, _ = build_full_dataset()
     print({s: len(v) for s, v in by_split.items()})
 
     turn_feats_by_id, position_feats_by_id = extract_all_features(data)
@@ -162,12 +171,12 @@ def _write_report(reports_by_fpr, leakage):
             "the GRU's training -- without it, every scorer including the GRU showed\n"
             "0% early_recall everywhere.\n\n"
             "FINDING 3 -- that earliness doesn't generalize yet: on all three\n"
-            "held-out splits (held-out pattern, held-out generator voice, both), the\n"
+            "held-out splits (held-out pattern, held-out generator style, both), the\n"
             "GRU's early_recall is still 0% even though its classification AUC on\n"
             "those same splits is high (0.75-0.91). So the model can tell held-out\n"
             "scam conversations apart from legitimate ones by the end of the\n"
             "conversation, but it hasn't learned to flag the *held-out* escalation\n"
-            "pattern or generator voice before the harmful ask turn -- only for the\n"
+            "pattern or generator style before the harmful ask turn -- only for the\n"
             "pattern/voices it was trained on. Likely causes, worth investigating\n"
             "next: (1) our per-turn training label is 1 only at/after the ask turn,\n"
             "so the model gets no training signal that earlier urgency/authority\n"

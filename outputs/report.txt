@@ -15,8 +15,8 @@ Opening-turn leakage check (scam vs. matched twin, first 2 turns, 5-fold CV accu
 -- test_heldout_both (n=24) --  accuracy=0.500  f1=0.250  auc=0.500
 
 === message-level (emotion) ===
--- test (n=90) --  accuracy=0.489  f1=0.042  auc=0.429
--- test_heldout_pattern (n=24) --  accuracy=0.500  f1=0.000  auc=0.646
+-- test (n=90) --  accuracy=0.489  f1=0.042  auc=0.425
+-- test_heldout_pattern (n=24) --  accuracy=0.500  f1=0.000  auc=0.639
 -- test_heldout_llm (n=24) --  accuracy=0.417  f1=0.000  auc=0.365
 -- test_heldout_both (n=24) --  accuracy=0.500  f1=0.000  auc=0.649
 
@@ -94,12 +94,12 @@ the GRU's training -- without it, every scorer including the GRU showed
 0% early_recall everywhere.
 
 FINDING 3 -- that earliness doesn't generalize yet: on all three
-held-out splits (held-out pattern, held-out generator voice, both), the
+held-out splits (held-out pattern, held-out generator style, both), the
 GRU's early_recall is still 0% even though its classification AUC on
 those same splits is high (0.75-0.91). So the model can tell held-out
 scam conversations apart from legitimate ones by the end of the
 conversation, but it hasn't learned to flag the *held-out* escalation
-pattern or generator voice before the harmful ask turn -- only for the
+pattern or generator style before the harmful ask turn -- only for the
 pattern/voices it was trained on. Likely causes, worth investigating
 next: (1) our per-turn training label is 1 only at/after the ask turn,
 so the model gets no training signal that earlier urgency/authority

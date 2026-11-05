@@ -3,7 +3,7 @@
 # matched legitimate twin (same roles, same amount, same deadline, resolved
 # through a normal process instead of manipulation). Conversations vary in
 # length (8-16 turns) and the ask position is randomized, so turn index alone
-# can't predict it. One pattern (payroll_redirect) and one generator voice are
+# can't predict it. One pattern (payroll_redirect) and one generator style are
 # held out entirely, for the held-out-pattern / held-out-LLM splits.
 #
 # This still uses text templates rather than real LLM calls (no API access
@@ -243,14 +243,14 @@ def build_dataset(n_pairs_train=25, n_pairs_val=20, n_pairs_test=15, n_pairs_ood
         convs += [scam, twin]
         cid += 2
 
-    # held-out generator: in-distribution patterns, held-out generator voice
+    # held-out generator: in-distribution patterns, held-out generator style
     for _ in range(n_pairs_ood):
         pattern = rng.choice(in_dist_patterns)
         scam, twin = make_pair(cid, pattern, HELD_OUT_GENERATOR, "test_heldout_llm", rng)
         convs += [scam, twin]
         cid += 2
 
-    # both held out: payroll_redirect + held-out generator voice
+    # both held out: payroll_redirect + held-out generator style
     for _ in range(n_pairs_ood):
         scam, twin = make_pair(cid, HELD_OUT_PATTERN, HELD_OUT_GENERATOR, "test_heldout_both", rng)
         convs += [scam, twin]

@@ -1,0 +1,27 @@
+Feature ablations -- classification AUC per split, target FPR 5%,
+message-level and trajectory GRU re-trained from scratch on each
+ablated feature subset (position-only and running aggregate are
+unaffected: position-only doesn't use these features at all, and
+running aggregate is a transform of message-level's own output, so
+its numbers would just mirror message-level's row above).
+
+=== full (emotion_dist + delta + speaker, 15-dim) ===
+  message-level (emotion): test=0.425  test_heldout_pattern=0.639  test_heldout_llm=0.365  test_heldout_both=0.649
+  trajectory (emotion, GRU): test=0.828  test_heldout_pattern=0.750  test_heldout_llm=0.910  test_heldout_both=0.757
+
+=== no_delta (emotion_dist + speaker, 8-dim) ===
+  message-level (emotion): test=0.473  test_heldout_pattern=0.594  test_heldout_llm=0.483  test_heldout_both=0.479
+  trajectory (emotion, GRU): test=0.799  test_heldout_pattern=0.521  test_heldout_llm=0.889  test_heldout_both=0.625
+
+=== no_speaker (emotion_dist + delta, 14-dim) ===
+  message-level (emotion): test=0.486  test_heldout_pattern=0.410  test_heldout_llm=0.615  test_heldout_both=0.396
+  trajectory (emotion, GRU): test=0.758  test_heldout_pattern=0.535  test_heldout_llm=0.694  test_heldout_both=0.576
+
+=== emotion_dist_only (7-dim) ===
+  message-level (emotion): test=0.457  test_heldout_pattern=0.472  test_heldout_llm=0.625  test_heldout_both=0.476
+  trajectory (emotion, GRU): test=0.665  test_heldout_pattern=0.604  test_heldout_llm=0.653  test_heldout_both=0.632
+
+=== delta_only + speaker (8-dim) ===
+  message-level (emotion): test=0.451  test_heldout_pattern=0.594  test_heldout_llm=0.253  test_heldout_both=0.438
+  trajectory (emotion, GRU): test=0.724  test_heldout_pattern=0.750  test_heldout_llm=0.854  test_heldout_both=0.632
+

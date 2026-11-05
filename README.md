@@ -115,7 +115,7 @@ training objective -- before that change, every scorer including the
 GRU showed 0% early_recall everywhere.
 
 **But that earliness doesn't generalize yet.** On all three held-out
-splits (unseen pattern, unseen generator voice, both), the GRU's
+splits (unseen pattern, unseen generator style, both), the GRU's
 early_recall is still 0%, even though its classification AUC on those
 same splits is high (0.75-0.91). So it can tell a held-out scam
 conversation apart from a legitimate one by the end of the conversation,

@@ -1,6 +1,6 @@
 """
 Stub showing where real LLM calls go. Not used by default -- generate_data.py
-currently stands in four "generator voices" (GENERATORS in generate_data.py)
+currently stands in four "generator styles" (GENERATORS in generate_data.py)
 with simple text transforms instead of real API calls, since this checkpoint
 has no API access. To wire in real generation, replace the GENERATORS dict's
 lambdas with calls to the functions below (one real model per generator
