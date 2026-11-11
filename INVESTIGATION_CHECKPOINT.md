@@ -1,7 +1,7 @@
 # Final Project - Investigation & Iteration Checkpoint
 
 **Project:** Detecting scam / social-engineering conversations early via a turn-by-turn trajectory model, compared against single-message baselines
-**Repo:** scam-trajectory-ml, branch `investigation-and-iteration-checkpoint`
+**Code:** https://github.com/Sanshiv123/scam-trajectory-ml/tree/investigation-and-iteration-checkpoint
 
 This is a progress update, not a final report. It covers what we've tried since the MVP + Evaluation Pipeline checkpoint (Oct 28), what broke, what surprised us, and where we're taking it next.
 
@@ -37,6 +37,10 @@ We ran a feature ablation over the trajectory model's 15-dimensional per-turn ve
 The pattern that stands out: dropping either delta or speaker hurts the held-out splits a lot more than the in-distribution test split -- e.g. `no_delta` barely moves the test AUC (0.83 -> 0.80) but drops `test_heldout_pattern` from 0.75 to 0.52, close to chance. The raw emotion distribution alone (`emotion_dist_only`) is the weakest subset everywhere. So the GRU isn't mostly reading "what emotion is this turn," it's reading how the emotion is *changing* turn to turn, and that's specifically what lets it generalize to a pattern it wasn't trained on -- not just a boost on data it's already seen.
 
 An earlier, richer run of this same ablation (with the real-data-mixed pipeline and the slow-burn split, see `outputs/feature_ablation_report.txt`'s full history and FINDING 3 in `outputs/report.txt`) found an even sharper version of this: removing delta drops the GRU's slow-burn AUC from 0.78 to 0.48 -- its single biggest ablation drop anywhere -- while barely denting the standard test split. Longer conversations give the model more turns over which to track emotional change, and that's specifically where it earns its complexity over the simpler baselines.
+
+![Lead-time distribution on the test split: each scorer's per-conversation lead (turns before the harmful ask; negative = caught after it). The GRU (red) is the only scorer that fires before the ask turn at all, and even then median lead is just 1 turn.](outputs/earliness_hist.png)
+
+The plot above makes FINDING 2 concrete: position-only (gray) only ever "fires" 9-11 turns *after* the ask (it's just tracking absolute position in a long conversation, not the ask itself), while the GRU (red) is the only scorer with real mass at or before lead=0 -- but even its earliest hits are 1 turn ahead, not a wide margin. That's the unexpected result worth sitting with: the signal that does generalize in-distribution is real but modest, not a dramatic early-warning system yet.
 
 ## Failure and/or error analysis
 
