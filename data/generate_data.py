@@ -161,6 +161,9 @@ class Conversation:
     harmful_turn_idx: int = None                     # t_ask, manipulative only
     split: str = "train"
     is_twin: bool = False
+    pair_id: str = None
+    phases: list = field(default_factory=list)
+    scenario_id: str = None
 
 
 def _pick(bank, rng, n):

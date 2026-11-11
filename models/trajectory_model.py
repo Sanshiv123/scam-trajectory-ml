@@ -29,7 +29,7 @@ class TrajectoryModel:
         self.epochs = epochs
         self.lr = lr
 
-    def fit(self, feature_seqs, label_seqs):
+    def fit(self, feature_seqs, label_seqs, last_only=False):
         # feature_seqs: list of (len_i, input_dim) arrays; label_seqs: list of (len_i,) arrays
         lengths = [len(f) for f in feature_seqs]
         max_len = max(lengths)
@@ -43,7 +43,7 @@ class TrajectoryModel:
             L = len(f)
             X[i, :L] = torch.tensor(f, dtype=torch.float32)
             Y[i, :L] = torch.tensor(y, dtype=torch.float32)
-            mask[i, :L] = 1.0
+            mask[i, L-1 if last_only else 0:L] = 1.0
         lengths_t = torch.tensor(lengths)
 
         # class-balance the loss: real turns and most legitimate pools push
@@ -63,6 +63,18 @@ class TrajectoryModel:
             loss.backward()
             opt.step()
         return self
+
+    def running_scores(self, feature_seqs, batch_size=64):
+        self.net.eval()
+        out = []
+        with torch.no_grad():
+            for start in range(0, len(feature_seqs), batch_size):
+                seqs = feature_seqs[start:start+batch_size]
+                lengths = torch.tensor([len(f) for f in seqs])
+                x = nn.utils.rnn.pad_sequence([torch.as_tensor(f, dtype=torch.float32) for f in seqs], batch_first=True)
+                scores = torch.sigmoid(self.net(x, lengths)).numpy()
+                out.extend(scores[i, :len(f)].copy() for i, f in enumerate(seqs))
+        return out
 
     def running_score(self, turn_feats: np.ndarray) -> np.ndarray:
         self.net.eval()

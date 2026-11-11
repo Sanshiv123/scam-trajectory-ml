@@ -1,152 +1,117 @@
-# Emotional-Trajectory Detection of Social Engineering — MVP + Evaluation Pipeline
+# Emotional trajectory detection of social engineering
 
-**Team 6:** Sanchusri Kavitha Babu, Rahul Ajith Kumar, Sisvanthkumar Sathivadivel
+Team 6: Sanchusri Kavitha Babu, Rahul Ajith Kumar, Sisvanthkumar Sathivadivel.
 
-This is the MVP + Evaluation Pipeline checkpoint for our project. It's a
-working end-to-end pipeline (data -> features -> scorers -> evaluation)
-that we can run today, currently running fully on synthetic data: the
-scam/matched-twin conversations are still template-generated placeholders
-(we don't have an API key for a real LLM in this environment), and the
-legitimate side is synthetic too for this run. Numbers in
-`outputs/report.txt` demonstrate that the pipeline runs end to end and
-produces something interpretable, not final results.
+This branch rebuilds the investigation checkpoint from the original October MVP
+(commit 67cddb6 on main). Every new result comes from the code and artifacts in
+this branch. The previous investigation branch is not merged.
 
-We also built and validated a real-data path for the legitimate side
-(real Enron email threads + real ESConv/AnnoMI conversations, plus a
-secondary false-positive check against real Enron text) -- see
-`data/external_data.py` and `data/external/*.json`. It's not active in
-this run (we decided to keep this checkpoint synthetic-only), but the
-code and the downloaded data are in the repo and ready to switch back on;
-see "Built but not used right now" below.
+## Setup and commands
 
-## What's in scope for this checkpoint
+Use Python 3.12 and an isolated environment. On Windows PowerShell:
 
-From our proposal's full design, we're keeping four pieces for now and
-deferring the rest to later checkpoints:
-
-**Built now:**
-- The 4 real escalation patterns from our proposal (executive wire
-  request, vendor bank-detail change, IT helpdesk vishing, payroll
-  redirect), each paired with a matched legitimate "twin" conversation
-  (same roles, same amount, same deadline, resolved through a normal
-  process instead of manipulation) -- this removes "LLM-written vs.
-  normal text" as a shortcut.
-- Real per-turn emotion features from the pretrained classifier named in
-  our proposal (`j-hartmann/emotion-english-distilroberta-base`).
-- Four of our six scorers: position-only, message-level (emotion),
-  running aggregate (the TA-suggested baseline -- running mean and
-  running max of message-level scores so far, averaged together), and
-  the trajectory model (1-layer GRU, 64 hidden units) -- our main model.
-- The held-out splits: one pattern (payroll redirect) and one generator
-  voice held out entirely from training, so we can check generalization.
-- The opening-turn leakage shortcut check (can a simple classifier tell
-  scam from twin using only the first 2 turns?).
-
-**Built but not used right now:**
-- A real-data path for the legitimate side: real Enron email threads
-  (parsed from the public Enron corpus into actual back-and-forth
-  threads, deduplicated, fraud-investigation threads filtered out) and
-  real ESConv/AnnoMI conversations (`data/external_data.py`,
-  `data/external/*.json` -- ~1,500 Enron threads, ~1,300 ESConv, 133
-  AnnoMI, already downloaded and parsed).
-- A secondary FPR check against real, held-out Enron threads
-  (`eval/evaluate.py::secondary_fpr_check`), to test whether a threshold
-  calibrated on synthetic validation twins still holds its false-positive
-  rate on real text.
-- We built and ran this end to end earlier and it surfaced a real
-  finding (position-only badly over-fires on real text), but decided to
-  keep this checkpoint fully synthetic so the numbers below are a clean
-  baseline. None of this code was deleted -- `run_mvp.py` just doesn't
-  call it right now.
-
-**Deferred to later checkpoints:**
-- Real LLM-generated scam/matched-twin conversations -- still
-  template-generated, since this environment has no API key for an
-  external model. `data/llm_backend.py` has the wiring ready.
-- The ~300 Enron threads reserved for the authorship-restyling shortcut
-  check (`data/external/enron_authorship_source.json`) are pulled and
-  ready, but not yet restyled by an LLM, for the same reason.
-- The two text-based scorers (message-level and trajectory on raw text,
-  fine-tuned DistilBERT) that serve as our reference ceiling.
-- The rest of the shortcut-check suite (authorship probe, position +
-  correlation-with-length check, human realism audit).
-- The slow-burn evaluation (gradual-escalation conversations).
-- Feature ablations.
-
-## Files
-
-| File | What it does |
-|---|---|
-| `data/generate_data.py` | Builds the synthetic scam/twin conversation pairs across all splits (train/val/test + 3 held-out splits) |
-| `data/llm_backend.py` | Stubbed wiring for a real LLM backend (OpenAI/Anthropic) to replace the template generator -- not called yet, no API key in this environment |
-| `data/external_data.py` | Loads the real Enron/ESConv/AnnoMI data from `data/external/*.json` into the same Conversation format -- built and validated, not called by `run_mvp.py` in this run |
-| `features/emotion_features.py` | Runs the pretrained emotion classifier and builds the 15-dim per-turn feature vector (7-class emotion distribution + delta from previous turn + speaker flag) |
-| `models/baseline.py` | Position-only and message-level (emotion) scorers, plus the running-aggregate transform |
-| `models/trajectory_model.py` | The GRU trajectory model |
-| `eval/evaluate.py` | AT@FPR earliness metric, classification metrics, opening-leakage check, secondary FPR check |
-| `run_mvp.py` | Runs everything end to end and writes `outputs/report.txt` + two plots |
-
-## Running it
-
-```bash
-pip install -r requirements.txt   # scikit-learn, numpy, matplotlib, torch, transformers
-python3 run_mvp.py
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe -u run_mvp.py
+.\.venv\Scripts\python.exe -u run_experiments.py --mode investigation
 ```
 
-The first run downloads the emotion classifier's weights (needs internet
-access once; cached after that). Produces `outputs/report.txt` and two
-plots in `outputs/`.
+The first feature extraction downloads pretrained model weights. No paid API
+or generated LLM conversations are required. Model/text features are cached in
+`.cache/`; this directory and `.venv/` are ignored by Git. For exact package
+versions use a completed run's `requirements-lock.txt` with the CPU index above.
+Model revisions, truncation settings and source hashes are saved in manifest.json.
 
-## What we found
+Default runs use seeds 0, 1 and 2 and 30 epochs. `--seeds`, `--epochs`, and
+`--threads` configure runs, and their values are saved. `--prepare-only` downloads
+models and caches features without training. `--skip-text` omits frozen DistilBERT
+references (it still runs TF-IDF). Completed run folders contain `COMPLETE` and
+cannot be overwritten; archive/rename a completed folder before a deliberate rerun.
 
-**The three baselines (position-only, message-level, running aggregate)
-sit at or near chance and never fire early.** AUC 0.36-0.65 across all
-four splits, and 0% early_recall for all three, on every split, at both
-FPR targets we calibrated to (5%, 10%).
+## Evidence and outputs
 
-**The trajectory (GRU) model clearly separates scam from legitimate, and
-now shows some real earliness in-distribution.** AUC 0.75-0.91 across
-all four splits, beating every baseline everywhere. On the
-in-distribution test split specifically, early_recall is 9% at the
-5%-FPR threshold and 27% at the 10%-FPR threshold (median lead of 1 turn
-when it fires early). That's new since we added class-balanced loss
-(a `pos_weight` term, see `models/trajectory_model.py`) to the GRU's
-training objective -- before that change, every scorer including the
-GRU showed 0% early_recall everywhere.
+- `outputs/corrected-mvp/`: corrected evaluation of the original v1 templates.
+- `outputs/investigation/`: new v2 benchmark and all investigation experiments.
+- Each run includes `REPORT.md`, `summary.csv`, `manifest.json`, a dependency lock,
+  exact `dataset.json`, dataset audit, and error inventory.
+- Each experiment/seed saves `metrics.json`, per-turn `predictions.npz`,
+  per-conversation CSV, and fitted model weights where applicable.
+- `paired_bootstrap.json` contains paired differences conditional on seed-0 fits;
+  the report also shows variability across three training seeds.
+- `human_audit_PENDING.csv` is an unfilled worksheet, not completed annotations.
+- The root-level October PDF and `outputs/report.txt` / original plots are
+  **archival results with the old evaluation**, retained for comparison only.
 
-**But that earliness doesn't generalize yet.** On all three held-out
-splits (unseen pattern, unseen generator voice, both), the GRU's
-early_recall is still 0%, even though its classification AUC on those
-same splits is high (0.75-0.91). So it can tell a held-out scam
-conversation apart from a legitimate one by the end of the conversation,
-but it hasn't learned to flag a *novel* escalation pattern or generator
-voice before the harmful ask -- only the pattern/voices it was trained
-on. Most likely cause: our per-turn training label is only 1 at/after
-the ask turn, so the model never gets a training signal that earlier
-urgency/authority turns in an unfamiliar pattern belong to the same kind
-of escalation -- worth trying next, by widening how we label the pre-ask
-turns during training.
+Generate the checkpoint PDF from a completed investigation run with the bundled
+artifact Python (which includes ReportLab), or install ReportLab in a separate
+reporting environment:
 
-The opening-turn leakage check comes out near chance (0.47), which is a
-good sign: the generation process isn't leaking the scam/twin label into
-the rapport turns.
+```powershell
+python build_report.py --run outputs/investigation
+```
 
-## What's still not real data
+Output: `output/pdf/Investigation_Iteration_Checkpoint_Rebuilt.pdf`.
+The full machine-generated tables remain in `outputs/investigation/REPORT.md`.
 
-1. **Everything in this run.** `data/generate_data.py` fills in template
-   line banks (`PATTERNS` dict) with simple text transforms standing in
-   for different LLMs (`GENERATORS`), because this environment has no API
-   key for an external model. `data/llm_backend.py` has example wiring
-   ready for OpenAI/Anthropic calls -- the line banks become prompts
-   instead of literal text once a key is available. The legitimate side
-   is template-generated too in this run, even though a real-data path
-   exists and works (see "Built but not used right now" above) -- we
-   kept this checkpoint synthetic-only for a clean baseline.
-2. **The authorship-restyling shortcut check.** We pulled 300 real Enron
-   threads specifically to be rewritten by an LLM for this check
-   (`data/external/enron_authorship_source.json`), but haven't generated
-   the restyled versions yet, same reason as above.
-3. **The two text-based scorers and the DistilBERT reference ceiling** --
-   not implemented yet.
-4. **The rest of the shortcut checks (authorship probe, full position +
-   correlation analysis, human realism audit) and the slow-burn split.**
+## Corrections to the original MVP
+
+1. Conservative empirical threshold calibration respects `score >= threshold`,
+   including tied scores and small validation sets. Report actual FPR and Wilson
+   intervals on validation and each test, rather than assuming target FPR is met.
+2. Position features use absolute observed turn index; they do not reveal the
+   unknown final conversation length.
+3. The isolated-message baseline uses emotion distribution and speaker only.
+   Models using delta features explicitly have adjacent-turn context.
+4. The opening probe fits TF-IDF inside grouped folds, keeping scam/twin pairs
+   together. It is an opening-specific check, not proof of general dataset validity.
+5. Reports are generated from metrics; no hard-coded historical findings.
+
+The corrected MVP preserves the v1 templates to isolate evaluation changes. Its
+unrealistic pre-ask monologues are retained only as a historical comparison.
+
+## Rebuilt investigation
+
+The v2 generator alternates speakers before and after the ask. Scam/twin pairs
+share their opening, recipient replies, length, speaker schedule, amount and
+deadline. Scenario identities are unique across train/validation/test. Four named
+styles are text substitutions, not GPT/Claude/Llama/Qwen model generations.
+
+Experiments include:
+
+- Position, isolated-message, aggregate, and GRU on matched synthetic twins.
+- Real-negative-mixed training: 410 real training conversations and 73 diagnostic
+  validation examples; 200 separate Enron examples measure false positives.
+  Calibration uses synthetic legitimate validation twins in both conditions.
+- Five GRU feature configurations, plus corresponding logistic feature variants.
+- Causal shuffled-prefix control: shuffle only past turns, retain the current
+  turn and recompute deltas; train on prefixes with last-turn supervision.
+- Soft pre-ask training labels on urgency/authority turns from training patterns
+  only; test ask labels never change.
+- Paired long/delayed-ask tests: 20-32 turns, ask at 70-95% of the transcript.
+- Whole-transcript length/style shortcut probes, a legitimate-source probe,
+  TF-IDF message/prefix baselines, and frozen DistilBERT message/prefix references.
+- Pre-ask emotion separation diagnostics, error inventory and pending human audit.
+
+The long test adds neutral setup before pressure; it is not validated subtle or
+adaptive evasion. Frozen DistilBERT + logistic regression is not a fine-tuned
+DistilBERT ceiling. These distinctions are retained in the checkpoint report.
+
+## Scientific limits
+
+This is a controlled template benchmark. There is no independent real-scam test
+set, completed human realism audit, actual multi-LLM generation, or restyled
+Enron experiment. Perfect transcript classification can coexist with zero early
+recall and does not by itself establish a shortcut. Small samples at a 1% target
+are especially uncertain. Paired bootstrap intervals do not include training or
+calibration uncertainty; seed ranges address only observed fit variability.
+
+External data are provided JSON snapshots. The Enron reconstruction script is
+not available, and presumed legitimate labels/threading are not independently
+verified. Inputs are hashed and deduplicated exactly before splitting, but related
+threads or semantic near-duplicates may remain. Real conversations are capped
+at the first 64 turns; truncation counts and transformer token limits are recorded.
+
+Historic claims from the other checkpoint are not treated as targets. Any claim
+in the rebuilt submission must be supported by the new artifacts.

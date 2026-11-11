@@ -7,7 +7,8 @@ import numpy as np
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import GroupKFold, cross_val_score
+from sklearn.pipeline import make_pipeline
 
 
 def conversation_running_scores(conversations, turn_feats_by_id, running_score_fn):
@@ -19,11 +20,18 @@ def calibrate_threshold(legit_conversations, running_scores_by_id, target_fpr=0.
     # smallest threshold so at most target_fpr of these legitimate conversations
     # ever cross it (i.e. max running score >= threshold)
     max_scores = np.array([running_scores_by_id[c.conv_id].max() for c in legit_conversations])
-    if len(max_scores) == 0:
-        return 0.5
-    k = int(np.ceil((1 - target_fpr) * len(max_scores))) - 1
-    k = min(max(k, 0), len(max_scores) - 1)
-    return float(np.sort(max_scores)[k])
+    if not 0 <= target_fpr < 1:
+        raise ValueError("target_fpr must be in [0, 1)")
+    if len(max_scores) == 0 or not np.isfinite(max_scores).all():
+        raise ValueError("calibration requires nonempty finite legitimate scores")
+    allowed = int(np.floor(target_fpr * len(max_scores)))
+    boundary = np.sort(max_scores)[len(max_scores) - allowed - 1]
+    # Alert uses >=, so step ABOVE the excluded boundary. All boundary
+    # ties are excluded together, making calibration conservative.
+    # Step in the score dtype: a float64-only ULP can round back down when
+    # compared against float32 neural predictions under NumPy scalar promotion.
+    dtype = max_scores.dtype if np.issubdtype(max_scores.dtype, np.floating) else np.dtype("float64")
+    return float(np.nextafter(dtype.type(boundary), dtype.type(np.inf), dtype=dtype))
 
 
 def conversation_metrics(conversations, running_scores_by_id, threshold=0.5):
@@ -37,6 +45,19 @@ def conversation_metrics(conversations, running_scores_by_id, threshold=0.5):
     if len(set(y_true)) > 1:
         out["auc"] = roc_auc_score(y_true, scores)
     return out
+
+
+def false_positive_rate(conversations, running_scores_by_id, threshold):
+    legit = [c for c in conversations if c.label == 0]
+    n = len(legit)
+    k = sum(running_scores_by_id[c.conv_id].max() >= threshold for c in legit)
+    if not n:
+        return {"n": 0, "false_positives": 0, "fpr": None, "wilson95": None}
+    p, z = k / n, 1.959963984540054
+    center = (p + z*z/(2*n)) / (1 + z*z/n)
+    half = z * np.sqrt(p*(1-p)/n + z*z/(4*n*n)) / (1 + z*z/n)
+    return {"n": n, "false_positives": int(k), "fpr": p,
+            "wilson95": [max(0., center-half), min(1., center+half)]}
 
 
 def at_fpr(scam_conversations, threshold, running_scores_by_id):
@@ -75,7 +96,9 @@ def full_report(conversations_by_split, turn_feats_by_id, running_score_fn, targ
     val_legit = [c for c in conversations_by_split["val"] if c.label == 0]
     threshold = calibrate_threshold(val_legit, running_scores_by_id, target_fpr)
 
-    for split_name in SPLITS:
+    for split_name in conversations_by_split:
+        if split_name in ("train", "val"):
+            continue
         convs = conversations_by_split[split_name]
         scams = [c for c in convs if c.label == 1]
         earliness = at_fpr(scams, threshold, running_scores_by_id)
@@ -84,6 +107,8 @@ def full_report(conversations_by_split, turn_feats_by_id, running_score_fn, targ
             "n": len(convs),
             "classification": conversation_metrics(convs, running_scores_by_id, threshold=threshold),
             "earliness": earliness,
+            "false_positives": false_positive_rate(convs, running_scores_by_id, threshold),
+            "calibration": false_positive_rate(val_legit, running_scores_by_id, threshold),
         }
     return report, running_scores_by_id
 
@@ -110,7 +135,11 @@ def opening_leakage_check(conversations, n_turns=2, cv=5):
     labels = [c.label for c in conversations]
     if len(set(labels)) < 2:
         return {"cv_accuracy": None}
-    X = TfidfVectorizer(max_features=500, ngram_range=(1, 2)).fit_transform(texts)
-    clf = LogisticRegression(max_iter=1000)
-    scores = cross_val_score(clf, X, labels, cv=min(cv, min(np.bincount(labels))))
+    # Keep matched twins in one fold and learn the vocabulary inside each
+    # training fold. Real examples are excluded from this specific probe.
+    groups = [getattr(c, "pair_id", None) or f"legacy-{c.conv_id // 2}" for c in conversations]
+    clf = make_pipeline(TfidfVectorizer(max_features=500, ngram_range=(1, 2)),
+                        LogisticRegression(max_iter=1000))
+    scores = cross_val_score(clf, texts, labels, groups=groups,
+                             cv=GroupKFold(n_splits=min(cv, len(set(groups)))))
     return {"cv_accuracy": float(scores.mean())}

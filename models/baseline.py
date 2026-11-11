@@ -36,8 +36,10 @@ class PositionScorer:
 
 
 def position_features(n_turns: int) -> np.ndarray:
+    # Absolute observed index only. Final conversation length is unavailable
+    # at prediction time; normalizing by it leaked future information.
     idx = np.arange(n_turns)
-    return np.stack([idx, idx / max(n_turns - 1, 1)], axis=1)
+    return idx.reshape(-1, 1)
 
 
 class MessageLevelEmotionScorer:
