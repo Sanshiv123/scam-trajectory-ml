@@ -11,11 +11,16 @@
 # generation. Everything downstream only depends on the Conversation objects
 # this file returns.
 import random
-from dataclasses import dataclass, field
+from data.schema import Conversation  # Historical import path remains available.
 
 AMOUNTS = ["$18,400", "$42,900", "$67,250", "$94,000", "$123,500", "$156,800"]
-DEADLINES = ["by end of day", "before the wire window closes at 3pm", "by tomorrow morning",
-             "before the end of the week", "within the hour"]
+DEADLINES = [
+    "by end of day",
+    "before the wire window closes at 3pm",
+    "by tomorrow morning",
+    "before the end of the week",
+    "within the hour",
+]
 
 # ---------------------------------------------------------------------------
 # Each pattern defines: the two roles, and phase-tagged line banks for the
@@ -150,22 +155,6 @@ HELD_OUT_GENERATOR = "qwen"
 NAMES = ["Alex", "Jordan", "Sam", "Taylor", "Morgan", "Riley", "Casey", "Jamie"]
 
 
-@dataclass
-class Conversation:
-    conv_id: int
-    turns: list = field(default_factory=list)       # list of turn strings
-    speakers: list = field(default_factory=list)     # 0 = requester/attacker, 1 = target/recipient
-    label: int = 0                                   # 1 = manipulative (scam), 0 = legitimate (incl. twin)
-    pattern: str = None
-    generator: str = "gpt"
-    harmful_turn_idx: int = None                     # t_ask, manipulative only
-    split: str = "train"
-    is_twin: bool = False
-    pair_id: str = None
-    phases: list = field(default_factory=list)
-    scenario_id: str = None
-
-
 def _pick(bank, rng, n):
     return [rng.choice(bank) for _ in range(n)]
 
@@ -185,10 +174,12 @@ def make_pair(conv_id_start, pattern_name, generator, split, rng):
 
     # ---- scam path: rapport -> trust -> urgency -> authority -> ASK -> tail ----
     n_rapport, n_trust, n_urg, n_auth = 1, 1, rng.randint(1, 2), rng.randint(1, 2)
-    scam_pre = (_render(_pick(p["rapport"], rng, n_rapport), fmt, generator)
-                + _render(_pick(p["trust"], rng, n_trust), fmt, generator)
-                + _render(_pick(p["urgency"], rng, n_urg), fmt, generator)
-                + _render(_pick(p["authority"], rng, n_auth), fmt, generator))
+    scam_pre = (
+        _render(_pick(p["rapport"], rng, n_rapport), fmt, generator)
+        + _render(_pick(p["trust"], rng, n_trust), fmt, generator)
+        + _render(_pick(p["urgency"], rng, n_urg), fmt, generator)
+        + _render(_pick(p["authority"], rng, n_auth), fmt, generator)
+    )
     ask_line = _render([p["ask"]], fmt, generator)
     n_tail = max(0, total_len - len(scam_pre) - 1)
     scam_lines = scam_pre + ask_line
@@ -202,9 +193,11 @@ def make_pair(conv_id_start, pattern_name, generator, split, rng):
         scam_speakers.append(1 if is_reply else 0)
 
     # ---- twin path: rapport -> trust -> verify -> REQUEST -> tail, same total length ----
-    twin_pre = (_render(_pick(p["rapport"], rng, n_rapport), fmt, generator)
-                + _render(_pick(p["trust"], rng, n_trust), fmt, generator)
-                + _render(_pick(p["verify"], rng, n_urg + n_auth), fmt, generator))
+    twin_pre = (
+        _render(_pick(p["rapport"], rng, n_rapport), fmt, generator)
+        + _render(_pick(p["trust"], rng, n_trust), fmt, generator)
+        + _render(_pick(p["verify"], rng, n_urg + n_auth), fmt, generator)
+    )
     request_line = _render([p["request"]], fmt, generator)
     twin_lines = twin_pre + request_line
     while len(twin_lines) < total_len:
@@ -216,10 +209,28 @@ def make_pair(conv_id_start, pattern_name, generator, split, rng):
         twin_turns.append(line)
         twin_speakers.append(1 if is_reply else 0)
 
-    scam = Conversation(conv_id_start, scam_turns, scam_speakers, 1, pattern_name,
-                         generator, harmful_idx, split, is_twin=False)
-    twin = Conversation(conv_id_start + 1, twin_turns, twin_speakers, 0, pattern_name,
-                         generator, None, split, is_twin=True)
+    scam = Conversation(
+        conv_id_start,
+        scam_turns,
+        scam_speakers,
+        1,
+        pattern_name,
+        generator,
+        harmful_idx,
+        split,
+        is_twin=False,
+    )
+    twin = Conversation(
+        conv_id_start + 1,
+        twin_turns,
+        twin_speakers,
+        0,
+        pattern_name,
+        generator,
+        None,
+        split,
+        is_twin=True,
+    )
     return scam, twin
 
 
@@ -266,5 +277,6 @@ def build_dataset(n_pairs_train=25, n_pairs_val=20, n_pairs_test=15, n_pairs_ood
 if __name__ == "__main__":
     data = build_dataset()
     from collections import Counter
+
     print(Counter((c.split, c.label) for c in data))
     print(data[0])

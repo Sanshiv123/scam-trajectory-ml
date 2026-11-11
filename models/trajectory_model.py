@@ -16,7 +16,9 @@ class TrajectoryGRU(nn.Module):
 
     def forward(self, x, lengths):
         # x: (batch, max_len, input_dim) padded; lengths: (batch,)
-        packed = nn.utils.rnn.pack_padded_sequence(x, lengths, batch_first=True, enforce_sorted=False)
+        packed = nn.utils.rnn.pack_padded_sequence(
+            x, lengths, batch_first=True, enforce_sorted=False
+        )
         h, _ = self.gru(packed)
         h, _ = nn.utils.rnn.pad_packed_sequence(h, batch_first=True)
         return self.out(h).squeeze(-1)  # (batch, max_len) raw logits
@@ -43,7 +45,7 @@ class TrajectoryModel:
             L = len(f)
             X[i, :L] = torch.tensor(f, dtype=torch.float32)
             Y[i, :L] = torch.tensor(y, dtype=torch.float32)
-            mask[i, L-1 if last_only else 0:L] = 1.0
+            mask[i, L - 1 if last_only else 0 : L] = 1.0
         lengths_t = torch.tensor(lengths)
 
         # class-balance the loss: real turns and most legitimate pools push
@@ -69,11 +71,13 @@ class TrajectoryModel:
         out = []
         with torch.no_grad():
             for start in range(0, len(feature_seqs), batch_size):
-                seqs = feature_seqs[start:start+batch_size]
+                seqs = feature_seqs[start : start + batch_size]
                 lengths = torch.tensor([len(f) for f in seqs])
-                x = nn.utils.rnn.pad_sequence([torch.as_tensor(f, dtype=torch.float32) for f in seqs], batch_first=True)
+                x = nn.utils.rnn.pad_sequence(
+                    [torch.as_tensor(f, dtype=torch.float32) for f in seqs], batch_first=True
+                )
                 scores = torch.sigmoid(self.net(x, lengths)).numpy()
-                out.extend(scores[i, :len(f)].copy() for i, f in enumerate(seqs))
+                out.extend(scores[i, : len(f)].copy() for i, f in enumerate(seqs))
         return out
 
     def running_score(self, turn_feats: np.ndarray) -> np.ndarray:

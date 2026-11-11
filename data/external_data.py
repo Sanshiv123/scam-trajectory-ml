@@ -26,7 +26,7 @@
 # versions yet (see README).
 import json
 import os
-from data.generate_data import Conversation
+from data.schema import Conversation
 
 _DIR = os.path.join(os.path.dirname(__file__), "external")
 
@@ -49,11 +49,19 @@ def load_enron(path=None, label_split="train"):
         turns = [turn["text"] for turn in t["turns"]]
         first_sender = t["turns"][0]["speaker"]
         speakers = _speaker_sequence(t["turns"], first_sender)
-        convs.append(Conversation(
-            conv_id=None, turns=turns, speakers=speakers, label=0,
-            pattern="enron_real", generator="human", harmful_turn_idx=None,
-            split=label_split, is_twin=False,
-        ))
+        convs.append(
+            Conversation(
+                conv_id=None,
+                turns=turns,
+                speakers=speakers,
+                label=0,
+                pattern="enron_real",
+                generator="human",
+                harmful_turn_idx=None,
+                split=label_split,
+                is_twin=False,
+            )
+        )
     return convs
 
 
@@ -65,11 +73,19 @@ def load_esconv(path=None, label_split="train"):
     for rec in convs_raw:
         turns = [t["text"] for t in rec["turns"]]
         speakers = _speaker_sequence(rec["turns"], "sys")
-        convs.append(Conversation(
-            conv_id=None, turns=turns, speakers=speakers, label=0,
-            pattern="esconv_real", generator="human", harmful_turn_idx=None,
-            split=label_split, is_twin=False,
-        ))
+        convs.append(
+            Conversation(
+                conv_id=None,
+                turns=turns,
+                speakers=speakers,
+                label=0,
+                pattern="esconv_real",
+                generator="human",
+                harmful_turn_idx=None,
+                split=label_split,
+                is_twin=False,
+            )
+        )
     return convs
 
 
@@ -81,16 +97,25 @@ def load_annomi(path=None, label_split="train"):
     for rec in convs_raw:
         turns = [t["text"] for t in rec["turns"]]
         speakers = _speaker_sequence(rec["turns"], "sys")
-        convs.append(Conversation(
-            conv_id=None, turns=turns, speakers=speakers, label=0,
-            pattern="annomi_real", generator="human", harmful_turn_idx=None,
-            split=label_split, is_twin=False,
-        ))
+        convs.append(
+            Conversation(
+                conv_id=None,
+                turns=turns,
+                speakers=speakers,
+                label=0,
+                pattern="annomi_real",
+                generator="human",
+                harmful_turn_idx=None,
+                split=label_split,
+                is_twin=False,
+            )
+        )
     return convs
 
 
-def load_all_real_legitimate(rng, train_frac=0.85, n_secondary_fpr=300,
-                              n_enron=None, n_esconv=None, n_annomi=None):
+def load_all_real_legitimate(
+    rng, train_frac=0.85, n_secondary_fpr=300, n_enron=None, n_esconv=None, n_annomi=None
+):
     """Loads Enron + ESConv + AnnoMI. Enron is split into two
     non-overlapping groups up front: most of it goes into train/val
     (same as ESConv/AnnoMI), and a separate slice (n_secondary_fpr

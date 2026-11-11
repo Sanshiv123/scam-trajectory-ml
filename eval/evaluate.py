@@ -30,7 +30,9 @@ def calibrate_threshold(legit_conversations, running_scores_by_id, target_fpr=0.
     # ties are excluded together, making calibration conservative.
     # Step in the score dtype: a float64-only ULP can round back down when
     # compared against float32 neural predictions under NumPy scalar promotion.
-    dtype = max_scores.dtype if np.issubdtype(max_scores.dtype, np.floating) else np.dtype("float64")
+    dtype = (
+        max_scores.dtype if np.issubdtype(max_scores.dtype, np.floating) else np.dtype("float64")
+    )
     return float(np.nextafter(dtype.type(boundary), dtype.type(np.inf), dtype=dtype))
 
 
@@ -54,10 +56,14 @@ def false_positive_rate(conversations, running_scores_by_id, threshold):
     if not n:
         return {"n": 0, "false_positives": 0, "fpr": None, "wilson95": None}
     p, z = k / n, 1.959963984540054
-    center = (p + z*z/(2*n)) / (1 + z*z/n)
-    half = z * np.sqrt(p*(1-p)/n + z*z/(4*n*n)) / (1 + z*z/n)
-    return {"n": n, "false_positives": int(k), "fpr": p,
-            "wilson95": [max(0., center-half), min(1., center+half)]}
+    center = (p + z * z / (2 * n)) / (1 + z * z / n)
+    half = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / (1 + z * z / n)
+    return {
+        "n": n,
+        "false_positives": int(k),
+        "fpr": p,
+        "wilson95": [max(0.0, center - half), min(1.0, center + half)],
+    }
 
 
 def at_fpr(scam_conversations, threshold, running_scores_by_id):
@@ -73,13 +79,18 @@ def at_fpr(scam_conversations, threshold, running_scores_by_id):
 
     early = [l for l in leads if l is not None and l > 0]
     late_or_never = sum(1 for l in leads if l is None or l <= 0)
-    lead_fractions = [leads[i] / max(c.harmful_turn_idx, 1)
-                       for i, c in enumerate(scam_conversations) if leads[i] is not None and leads[i] > 0]
+    lead_fractions = [
+        leads[i] / max(c.harmful_turn_idx, 1)
+        for i, c in enumerate(scam_conversations)
+        if leads[i] is not None and leads[i] > 0
+    ]
     return {
         "threshold": threshold,
         "early_recall": len(early) / len(scam_conversations) if scam_conversations else 0.0,
         "median_lead_turns": float(np.median(early)) if early else None,
-        "late_or_never_rate": late_or_never / len(scam_conversations) if scam_conversations else 0.0,
+        "late_or_never_rate": (
+            late_or_never / len(scam_conversations) if scam_conversations else 0.0
+        ),
         "mean_lead_fraction": float(np.mean(lead_fractions)) if lead_fractions else None,
         "per_conversation_leads": leads,
     }
@@ -91,7 +102,9 @@ SPLITS = ["test", "test_heldout_pattern", "test_heldout_llm", "test_heldout_both
 def full_report(conversations_by_split, turn_feats_by_id, running_score_fn, target_fpr=0.05):
     report = {}
     all_convs = [c for split in conversations_by_split.values() for c in split]
-    running_scores_by_id = conversation_running_scores(all_convs, turn_feats_by_id, running_score_fn)
+    running_scores_by_id = conversation_running_scores(
+        all_convs, turn_feats_by_id, running_score_fn
+    )
 
     val_legit = [c for c in conversations_by_split["val"] if c.label == 0]
     threshold = calibrate_threshold(val_legit, running_scores_by_id, target_fpr)
@@ -105,7 +118,9 @@ def full_report(conversations_by_split, turn_feats_by_id, running_score_fn, targ
         earliness["target_fpr"] = target_fpr
         report[split_name] = {
             "n": len(convs),
-            "classification": conversation_metrics(convs, running_scores_by_id, threshold=threshold),
+            "classification": conversation_metrics(
+                convs, running_scores_by_id, threshold=threshold
+            ),
             "earliness": earliness,
             "false_positives": false_positive_rate(convs, running_scores_by_id, threshold),
             "calibration": false_positive_rate(val_legit, running_scores_by_id, threshold),
@@ -138,8 +153,10 @@ def opening_leakage_check(conversations, n_turns=2, cv=5):
     # Keep matched twins in one fold and learn the vocabulary inside each
     # training fold. Real examples are excluded from this specific probe.
     groups = [getattr(c, "pair_id", None) or f"legacy-{c.conv_id // 2}" for c in conversations]
-    clf = make_pipeline(TfidfVectorizer(max_features=500, ngram_range=(1, 2)),
-                        LogisticRegression(max_iter=1000))
-    scores = cross_val_score(clf, texts, labels, groups=groups,
-                             cv=GroupKFold(n_splits=min(cv, len(set(groups)))))
+    clf = make_pipeline(
+        TfidfVectorizer(max_features=500, ngram_range=(1, 2)), LogisticRegression(max_iter=1000)
+    )
+    scores = cross_val_score(
+        clf, texts, labels, groups=groups, cv=GroupKFold(n_splits=min(cv, len(set(groups))))
+    )
     return {"cv_accuracy": float(scores.mean())}

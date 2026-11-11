@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scam-trajectory-ml"
+version = "0.2.0"
+description = "Controlled experiments in conversational social-engineering early detection"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "scikit-learn>=1.3",
+  "matplotlib>=3.7",
+  "torch>=2.0",
+  "transformers==4.57.1",
+]
+
+[project.optional-dependencies]
+report = ["reportlab>=4"]
+dev = ["black==24.10.0"]
+
+[project.scripts]
+scam-trajectory = "experiments.cli:main"
+scam-trajectory-verify = "eval.verify_outputs:main"
+scam-trajectory-report = "reporting.checkpoint:main"
+
+[tool.setuptools.packages.find]
+include = ["data", "features", "models", "eval", "experiments", "reporting"]
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]

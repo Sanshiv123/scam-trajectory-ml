@@ -14,9 +14,10 @@ def _get_classifier():
     global _clf
     if _clf is None:
         from transformers import pipeline
-        _clf = pipeline("text-classification",
-                         model="j-hartmann/emotion-english-distilroberta-base",
-                         top_k=None)
+
+        _clf = pipeline(
+            "text-classification", model="j-hartmann/emotion-english-distilroberta-base", top_k=None
+        )
     return _clf
 
 

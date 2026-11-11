@@ -13,7 +13,10 @@ Keep the same signature: given a persona/system prompt and the conversation
 so far, return the next turn as a string.
 """
 
-def generate_next_turn_openai(system_prompt: str, history: list[str], client=None, model="gpt-4o-mini") -> str:
+
+def generate_next_turn_openai(
+    system_prompt: str, history: list[str], client=None, model="gpt-4o-mini"
+) -> str:
     """Example wiring for the OpenAI API. Fill in your own client/model."""
     if client is None:
         raise RuntimeError("pass an initialized OpenAI client")
@@ -25,7 +28,9 @@ def generate_next_turn_openai(system_prompt: str, history: list[str], client=Non
     return resp.choices[0].message.content
 
 
-def generate_next_turn_anthropic(system_prompt: str, history: list[str], client=None, model="claude-3-5-haiku-latest") -> str:
+def generate_next_turn_anthropic(
+    system_prompt: str, history: list[str], client=None, model="claude-3-5-haiku-latest"
+) -> str:
     """Example wiring for the Anthropic API."""
     if client is None:
         raise RuntimeError("pass an initialized Anthropic client")
@@ -33,5 +38,7 @@ def generate_next_turn_anthropic(system_prompt: str, history: list[str], client=
     for i, turn in enumerate(history):
         role = "assistant" if i % 2 == 0 else "user"
         messages.append({"role": role, "content": turn})
-    resp = client.messages.create(model=model, system=system_prompt, max_tokens=200, messages=messages)
+    resp = client.messages.create(
+        model=model, system=system_prompt, max_tokens=200, messages=messages
+    )
     return resp.content[0].text

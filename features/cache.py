@@ -1,4 +1,5 @@
 """Content-addressed frozen transformer inference; downloads happen only on cache miss."""
+
 import hashlib
 import json
 import os
@@ -18,6 +19,7 @@ LABELS = ["anger", "disgust", "fear", "joy", "neutral", "sadness", "surprise"]
 def encode(texts, kind="emotion", batch_size=16, max_length=256):
     import torch
     from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification
+
     model_id = EMOTION if kind == "emotion" else TEXT
     folder = ROOT / ".cache" / kind
     folder.mkdir(parents=True, exist_ok=True)
@@ -36,28 +38,42 @@ def encode(texts, kind="emotion", batch_size=16, max_length=256):
         items = list(missing.items())
         truncated = 0
         for start in range(0, len(items), batch_size):
-            chunk = items[start:start+batch_size]
+            chunk = items[start : start + batch_size]
             raw = tokenizer([t for _, t in chunk], add_special_tokens=True, truncation=False)
             truncated += sum(len(ids) > max_length for ids in raw["input_ids"])
-            inputs = tokenizer([t for _, t in chunk], padding=True, truncation=True,
-                               max_length=max_length, return_tensors="pt")
+            inputs = tokenizer(
+                [t for _, t in chunk],
+                padding=True,
+                truncation=True,
+                max_length=max_length,
+                return_tensors="pt",
+            )
             with torch.inference_mode():
                 output = model(**inputs)
                 if kind == "emotion":
                     probs = output.logits.softmax(-1).numpy()
-                    indices = [next(int(i) for i, name in model.config.id2label.items() if name == lab) for lab in LABELS]
+                    indices = [
+                        next(int(i) for i, name in model.config.id2label.items() if name == lab)
+                        for lab in LABELS
+                    ]
                     vectors = probs[:, indices]
                 else:
                     # Frozen token-mean representation, not fine-tuned DistilBERT.
                     mask = inputs["attention_mask"].unsqueeze(-1)
                     vectors = ((output.last_hidden_state * mask).sum(1) / mask.sum(1)).numpy()
-            for (digest, _), vec in zip(chunk, vectors): cache[digest] = vec
-            if start % (batch_size*25) == 0:
+            for (digest, _), vec in zip(chunk, vectors):
+                cache[digest] = vec
+            if start % (batch_size * 25) == 0:
                 print(f"{kind}: {min(start+batch_size,len(items))}/{len(items)}", flush=True)
         np.savez_compressed(index_path, **cache)
-        info = dict(model=model_id, revision=model.config._commit_hash, max_length=max_length,
-                    cached_texts=len(cache), truncated_texts=info.get("truncated_texts", 0)+truncated,
-                    inference="CPU float32 eval, fixed batch size, deterministic torch")
+        info = dict(
+            model=model_id,
+            revision=model.config._commit_hash,
+            max_length=max_length,
+            cached_texts=len(cache),
+            truncated_texts=info.get("truncated_texts", 0) + truncated,
+            inference="CPU float32 eval, fixed batch size, deterministic torch",
+        )
         info_path.write_text(json.dumps(info, indent=2), encoding="utf-8")
         del model
     return np.stack([cache[key(t)] for t in texts]), info

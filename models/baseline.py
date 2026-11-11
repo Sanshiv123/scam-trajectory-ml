@@ -12,15 +12,14 @@
 # alarming message (max) contribute.
 import numpy as np
 from sklearn.linear_model import LogisticRegression
+from data.labels import labels as conversation_labels
 
 
 def turn_labels(conversations):
-    # weak per-turn label: 1 at/after t_ask in a manipulative conversation, else 0
-    labels = []
-    for c in conversations:
-        for i in range(len(c.turns)):
-            labels.append(int(c.label == 1 and i >= c.harmful_turn_idx))
-    return labels
+    """Compatibility helper for the shared ask-turn label policy."""
+    return [
+        int(value) for conversation in conversations for value in conversation_labels(conversation)
+    ]
 
 
 class PositionScorer:

@@ -6,6 +6,10 @@ This branch rebuilds the investigation checkpoint from the original October MVP
 (commit 67cddb6 on main). Every new result comes from the code and artifacts in
 this branch. The previous investigation branch is not merged.
 
+Read [PROJECT_STATUS.md](PROJECT_STATUS.md) for the current scientific assessment
+and [ARCHITECTURE.md](ARCHITECTURE.md) for the code layout. The model's weak results
+are preserved as evidence; restructuring the code does not improve those metrics.
+
 ## Setup and commands
 
 Use Python 3.12 and an isolated environment. On Windows PowerShell:
@@ -14,8 +18,9 @@ Use Python 3.12 and an isolated environment. On Windows PowerShell:
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
-.\.venv\Scripts\python.exe -u run_mvp.py
-.\.venv\Scripts\python.exe -u run_experiments.py --mode investigation
+.\.venv\Scripts\python.exe run_experiments.py --config configs/investigation.json --run-name trial-01 --dry-run
+.\.venv\Scripts\python.exe -u run_mvp.py --run-name trial-01
+.\.venv\Scripts\python.exe -u run_experiments.py --config configs/investigation.json --run-name trial-01
 ```
 
 The first feature extraction downloads pretrained model weights. No paid API
@@ -28,7 +33,19 @@ Default runs use seeds 0, 1 and 2 and 30 epochs. `--seeds`, `--epochs`, and
 `--threads` configure runs, and their values are saved. `--prepare-only` downloads
 models and caches features without training. `--skip-text` omits frozen DistilBERT
 references (it still runs TF-IDF). Completed run folders contain `COMPLETE` and
-cannot be overwritten; archive/rename a completed folder before a deliberate rerun.
+cannot be overwritten. Use a fresh `--run-name` for another experiment; its outputs
+go under `outputs/runs/<mode>-<name>/`. Prepared and failed directories are also
+preserved. `run_state.json` records the outcome. Feature caches are shared across
+run names, so a prepared run can seed a later, separately named training run.
+
+The JSON files in `configs/` contain the actual dataset counts and training
+settings. CLI overrides are validated and saved after resolution. `--dry-run`
+prints the configuration and destination without loading models or writing files.
+
+The editable install also provides `scam-trajectory`, `scam-trajectory-verify`,
+and `scam-trajectory-report` commands. Work from the repository checkout, where the
+versioned configs and external data live. Reporting dependencies are optional;
+install with `pip install -e ".[report]"` if not using the bundled artifact runtime.
 
 ## Evidence and outputs
 
@@ -43,6 +60,12 @@ cannot be overwritten; archive/rename a completed folder before a deliberate rer
 - `human_audit_PENDING.csv` is an unfilled worksheet, not completed annotations.
 - The root-level October PDF and `outputs/report.txt` / original plots are
   **archival results with the old evaluation**, retained for comparison only.
+
+The completed results in `outputs/corrected-mvp/` and `outputs/investigation/`
+remain immutable through the code refactor. Their source snapshots describe the
+code actually used at the time; the current default config presets reproduce
+those datasets exactly. Every new full run verifies its metrics against its saved
+predictions before marking itself complete.
 
 Generate the checkpoint PDF from a completed investigation run with the bundled
 artifact Python (which includes ReportLab), or install ReportLab in a separate
