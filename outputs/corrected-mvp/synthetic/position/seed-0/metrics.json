@@ -1,0 +1,683 @@
+{
+  "0.01": {
+    "test": {
+      "n": 90,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.0,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9467054573724281,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "target_fpr": 0.01
+      },
+      "false_positives": {
+        "n": 45,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          0.0,
+          0.07865159873288836
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          0.0,
+          0.06017185214208986
+        ]
+      }
+    },
+    "test_heldout_both": {
+      "n": 24,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.0,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9467054573724281,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "target_fpr": 0.01
+      },
+      "false_positives": {
+        "n": 12,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          2.7755575615628914e-17,
+          0.24249400665524085
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          0.0,
+          0.06017185214208986
+        ]
+      }
+    },
+    "test_heldout_llm": {
+      "n": 24,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.0,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9467054573724281,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "target_fpr": 0.01
+      },
+      "false_positives": {
+        "n": 12,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          2.7755575615628914e-17,
+          0.24249400665524085
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          0.0,
+          0.06017185214208986
+        ]
+      }
+    },
+    "test_heldout_pattern": {
+      "n": 24,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.0,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9467054573724281,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "target_fpr": 0.01
+      },
+      "false_positives": {
+        "n": 12,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          2.7755575615628914e-17,
+          0.24249400665524085
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          0.0,
+          0.06017185214208986
+        ]
+      }
+    }
+  },
+  "0.05": {
+    "test": {
+      "n": 90,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.23728813559322035,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9267987826469718,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          -9,
+          null,
+          null,
+          null,
+          -9,
+          -9,
+          null,
+          null,
+          null,
+          null,
+          null,
+          -11,
+          null,
+          null,
+          -10,
+          -10,
+          null,
+          null,
+          null,
+          -10,
+          null
+        ],
+        "target_fpr": 0.05
+      },
+      "false_positives": {
+        "n": 45,
+        "false_positives": 7,
+        "fpr": 0.15555555555555556,
+        "wilson95": [
+          0.07745423484758268,
+          0.2878390887239627
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 3,
+        "fpr": 0.05,
+        "wilson95": [
+          0.01714950216439568,
+          0.1370051647634852
+        ]
+      }
+    },
+    "test_heldout_both": {
+      "n": 24,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.14285714285714285,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9267987826469718,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          -10,
+          null
+        ],
+        "target_fpr": 0.05
+      },
+      "false_positives": {
+        "n": 12,
+        "false_positives": 1,
+        "fpr": 0.08333333333333333,
+        "wilson95": [
+          0.014865094404917095,
+          0.35387991114111694
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 3,
+        "fpr": 0.05,
+        "wilson95": [
+          0.01714950216439568,
+          0.1370051647634852
+        ]
+      }
+    },
+    "test_heldout_llm": {
+      "n": 24,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.0,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9267987826469718,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "target_fpr": 0.05
+      },
+      "false_positives": {
+        "n": 12,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          2.7755575615628914e-17,
+          0.24249400665524085
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 3,
+        "fpr": 0.05,
+        "wilson95": [
+          0.01714950216439568,
+          0.1370051647634852
+        ]
+      }
+    },
+    "test_heldout_pattern": {
+      "n": 24,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.14285714285714285,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9267987826469718,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          -10,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "target_fpr": 0.05
+      },
+      "false_positives": {
+        "n": 12,
+        "false_positives": 1,
+        "fpr": 0.08333333333333333,
+        "wilson95": [
+          0.014865094404917095,
+          0.35387991114111694
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 3,
+        "fpr": 0.05,
+        "wilson95": [
+          0.01714950216439568,
+          0.1370051647634852
+        ]
+      }
+    }
+  },
+  "0.1": {
+    "test": {
+      "n": 90,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.23728813559322035,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9267987826469718,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          -9,
+          null,
+          null,
+          null,
+          -9,
+          -9,
+          null,
+          null,
+          null,
+          null,
+          null,
+          -11,
+          null,
+          null,
+          -10,
+          -10,
+          null,
+          null,
+          null,
+          -10,
+          null
+        ],
+        "target_fpr": 0.1
+      },
+      "false_positives": {
+        "n": 45,
+        "false_positives": 7,
+        "fpr": 0.15555555555555556,
+        "wilson95": [
+          0.07745423484758268,
+          0.2878390887239627
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 3,
+        "fpr": 0.05,
+        "wilson95": [
+          0.01714950216439568,
+          0.1370051647634852
+        ]
+      }
+    },
+    "test_heldout_both": {
+      "n": 24,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.14285714285714285,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9267987826469718,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          -10,
+          null
+        ],
+        "target_fpr": 0.1
+      },
+      "false_positives": {
+        "n": 12,
+        "false_positives": 1,
+        "fpr": 0.08333333333333333,
+        "wilson95": [
+          0.014865094404917095,
+          0.35387991114111694
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 3,
+        "fpr": 0.05,
+        "wilson95": [
+          0.01714950216439568,
+          0.1370051647634852
+        ]
+      }
+    },
+    "test_heldout_llm": {
+      "n": 24,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.0,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9267987826469718,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "target_fpr": 0.1
+      },
+      "false_positives": {
+        "n": 12,
+        "false_positives": 0,
+        "fpr": 0.0,
+        "wilson95": [
+          2.7755575615628914e-17,
+          0.24249400665524085
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 3,
+        "fpr": 0.05,
+        "wilson95": [
+          0.01714950216439568,
+          0.1370051647634852
+        ]
+      }
+    },
+    "test_heldout_pattern": {
+      "n": 24,
+      "classification": {
+        "accuracy": 0.5,
+        "f1": 0.14285714285714285,
+        "auc": 0.5
+      },
+      "earliness": {
+        "threshold": 0.9267987826469718,
+        "early_recall": 0.0,
+        "median_lead_turns": null,
+        "late_or_never_rate": 1.0,
+        "mean_lead_fraction": null,
+        "per_conversation_leads": [
+          null,
+          null,
+          null,
+          null,
+          -10,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "target_fpr": 0.1
+      },
+      "false_positives": {
+        "n": 12,
+        "false_positives": 1,
+        "fpr": 0.08333333333333333,
+        "wilson95": [
+          0.014865094404917095,
+          0.35387991114111694
+        ]
+      },
+      "calibration": {
+        "n": 60,
+        "false_positives": 3,
+        "fpr": 0.05,
+        "wilson95": [
+          0.01714950216439568,
+          0.1370051647634852
+        ]
+      }
+    }
+  }
+}

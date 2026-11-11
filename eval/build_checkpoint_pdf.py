@@ -2,6 +2,7 @@
 import argparse
 from collections import Counter
 import json
+import hashlib
 from pathlib import Path
 from statistics import mean
 from xml.sax.saxutils import escape
@@ -20,6 +21,8 @@ def main():
     if not (root/"COMPLETE").exists():raise RuntimeError("Finish the experiment run before building the submission")
     load=lambda p:json.loads(p.read_text(encoding="utf-8"))
     manifest=load(root/"manifest.json");audit=load(root/"dataset_audit.json")
+    dataset=load(root/"dataset.json")
+    synthetic_n=sum(c["generator"]!="human" for c in dataset)
     metrics={}
     for p in root.glob("**/seed-*/metrics.json"):
         name=str(p.parent.parent.relative_to(root)).replace("\\","/")
@@ -30,6 +33,12 @@ def main():
     auc=lambda name,split="test":f"{value(name,split,('classification','auc')):.3f}"
     early=lambda name,split="test",target="0.05":f"{value(name,split,('earliness','early_recall'),target):.1%}"
     fpr=lambda name,split="test",target="0.05":f"{value(name,split,('false_positives','fpr'),target):.1%}"
+    findings=[
+        f"The emotion GRU achieves mean standard-test AUC {auc('synthetic/gru')} and early recall {early('synthetic/gru')} at the target 5% operating point, with observed FPR {fpr('synthetic/gru')}. This run does not demonstrate useful early warning on the standard revised benchmark. Its performance should not be equated with the corrected original-data rerun because the dataset, pairing constraints and training set changed together.",
+        f"On the long/delayed-ask test, GRU early recall rises to {early('synthetic/gru','test_slow')}, but legitimate-twin FPR rises to {fpr('synthetic/gru','test_slow')}. This is a calibration/timing-transfer failure, not a robustness success. Adding real negatives gives standard-test AUC {auc('mixed/gru')} and long-test FPR {fpr('mixed/gru','test_slow')}; it does not establish a fix for early detection.",
+        f"Removing deltas changes standard AUC to {auc('ablation/no-delta')}; removing the speaker flag gives {auc('ablation/no-speaker')}. Shuffled prefixes give AUC {auc('investigation/shuffled-prefix')}, while soft pre-ask labels give {auc('investigation/preask-label')} and early recall {early('investigation/preask-label')}. Small classification differences do not rescue the absent early-warning benefit. Seed-0 paired intervals below quantify conditional differences, not causal proof of a real-world emotion signal.",
+        f"TF-IDF prefixes achieve standard AUC {auc('synthetic/tfidf-prefix')} and early recall {early('synthetic/tfidf-prefix')}, but FPR on the held-out pattern is {fpr('synthetic/tfidf-prefix','test_heldout_pattern')}. High transcript AUC and badly shifted alert thresholds can coexist. The template benchmark remains vulnerable to surface shortcuts; text-model superiority here does not establish realistic manipulation detection."]
+    (root/"FINDINGS.md").write_text("# Interpretation of the rebuilt results\n\n"+"\n\n".join(findings)+"\n",encoding="utf-8")
     styles=getSampleStyleSheet()
     styles.add(ParagraphStyle(name="BodyTextReport",fontName="Helvetica",fontSize=9.3,leading=12.4,spaceAfter=7))
     styles.add(ParagraphStyle(name="SmallReport",fontName="Helvetica",fontSize=8,leading=10,spaceAfter=5))
@@ -51,7 +60,7 @@ def main():
     p("Rebuilt from the original MVP on branch <b>rahul/investigation-rebuild</b>. This report replaces unsupported historical claims with newly saved experiments; it does not assume the earlier reported numbers are correct.")
     heading("Question and experimental setup")
     p("Can an ordered sequence of emotion features detect a harmful request earlier than an isolated-message detector at a comparable false-alarm rate? We also test transfer to unseen template patterns/styles, longer delayed-ask conversations, and real legitimate text.")
-    p(f"The revised benchmark has <b>{audit['validation']['n']}</b> synthetic conversations, including matched scam/legitimate twins with identical opening turns, length and alternating speakers. Scenario identities are disjoint across training, validation and held-out tests; delayed-ask variants reuse only standard-test scenarios. Four generator labels are text-substitution styles, not actual LLM outputs.")
+    p(f"The revised benchmark has <b>{synthetic_n}</b> synthetic conversations, including matched scam/legitimate twins with identical opening turns, length and alternating speakers. Scenario identities are disjoint across training, validation and held-out tests; delayed-ask variants reuse only standard-test scenarios. Four generator labels are text-substitution styles, not actual LLM outputs.")
     p("Frozen emotion distributions (7), changes (7), and speaker flag (1) feed a 1-layer, 64-unit GRU. The isolated-message baseline excludes changes from the previous turn. Neural models use three seeds and 30 fixed epochs. Thresholds are calibrated only on legitimate synthetic validation twins; test labels never enter training or calibration.")
     heading("Corrections to the MVP")
     p("We corrected threshold ties/off-by-one behavior, removed final-length leakage from the position baseline, fitted the opening probe vocabulary within grouped folds, and removed hard-coded findings. The corrected original-data rerun is preserved separately under outputs/corrected-mvp; the revised-data investigation is not a like-for-like replication of October's dataset.")
@@ -112,14 +121,14 @@ def main():
     table(["Evaluation set","False alarms","Late / missed scams"],
         [[s,counts[s,"false_positive"],counts[s,"late_or_missed"]] for s in ["test","test_heldout_pattern","test_heldout_style","test_heldout_both","test_slow","secondary_enron"]],
         [3.0,1.5,1.5])
-    heading("What these experiments can establish")
-    p("The saved ablations test which supplied features contribute to this controlled benchmark. Sequence-order and pre-ask-label controls distinguish specific candidate explanations, while the real-negative experiment tests how calibration transfers beyond synthetic twins. The report does not infer realistic scam detection from these tests alone.")
+    heading("What changed and what failed")
+    p(findings[0]);p(findings[1])
     heading("Limitations and remaining checks")
     p("The long test adds neutral setup and delays the ask to 70-95% of 20-32 turns. It is a timing/length stress test, not validated low-intensity or adaptive evasion. There is no independent real-scam test set, no real-LLM generated conversation set, and no LLM-restyled Enron experiment in this run.")
-    p("The original Enron preparation script is unavailable; provided JSON files are hashed but their presumed legitimate labels and threading have not been independently verified. Exact deduplication cannot exclude near-duplicate or related-thread leakage. Small held-out sets and calibration samples limit precision, especially at the 1% target.")
+    p("The original Enron preparation script is unavailable; provided JSON labels/threading have not been independently verified. Exact deduplication cannot exclude related-thread overlap. Small held-out and calibration samples limit precision, especially at a 1% target.")
     p("A 150-example human audit worksheet is saved as human_audit_PENDING.csv. Realism ratings, independent ask verification, inter-rater agreement and manual failure-cluster analysis are still pending. We do not claim that calmly worded templates are realistic because of their tone alone.")
     heading("Next experiments")
-    p("Complete the human audit and inspect at least 20 false alarms and 20 late/missed scams; test new paraphrases and scenario families; add independent real scam transcripts if licensing allows; then decide whether generation diversity or representation changes address the observed failure clusters. Real-LLM generation requires a configured backend, and a fine-tuned DistilBERT ceiling remains separate work.")
+    p("Complete the human audit and inspect false alarms and late/missed scams. Prioritize removing surface-style shortcuts and testing length-matched validation calibration on fresh delayed-ask scenarios. Add new paraphrases, scenario families and independent real scam transcripts if available; a fine-tuned DistilBERT ceiling remains separate work.")
     heading("Reproduction and evidence")
     p("Run python run_mvp.py for the corrected original MVP and python run_experiments.py --mode investigation for this checkpoint. Each completed run saves dataset/configuration and hashes, pretrained model revisions, dependency versions, per-turn predictions, model weights, metrics at 1%/5%/10% targets, error inventory and plots. Completed outputs are protected against accidental overwriting.")
     p("Evidence: outputs/investigation/REPORT.md, summary.csv, paired_bootstrap.json, shortcut_probes.json, manifest.json and experiment subdirectories. The historical 40%/56% Enron rates, 0.78/0.48 slow-burn ablation and 1.000 DistilBERT score are not reused as findings.","SmallReport")
@@ -130,6 +139,11 @@ def main():
         canvas.drawRightString(7.8*inch,.42*inch,str(doc.page))
     SimpleDocTemplate(str(output),pagesize=letter,leftMargin=.7*inch,rightMargin=.7*inch,
         topMargin=.55*inch,bottomMargin=.65*inch,title="Investigation and Iteration Checkpoint",author="Team 6").build(story,onFirstPage=footer,onLaterPages=footer)
+    provenance=dict(builder_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        manifest_sha256=hashlib.sha256((root/"manifest.json").read_bytes()).hexdigest(),
+        metrics_sha256={str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in root.glob("**/seed-*/metrics.json")},
+        pdf_sha256=hashlib.sha256(output.read_bytes()).hexdigest())
+    output.with_suffix(".provenance.json").write_text(json.dumps(provenance,indent=2),encoding="utf-8")
     print(output.resolve())
 
 

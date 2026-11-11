@@ -1,0 +1,39 @@
+{
+  "validation": {
+    "n": 1427,
+    "splits": {
+      "train": 650,
+      "val": 120,
+      "test": 120,
+      "test_slow": 120,
+      "test_heldout_pattern": 48,
+      "test_heldout_style": 48,
+      "test_heldout_both": 48,
+      "val_real": 73,
+      "secondary_enron": 200
+    },
+    "templates": true,
+    "human_realism_audit_completed": false
+  },
+  "real": {
+    "enron": {
+      "input": 1500,
+      "filtered_or_duplicate": 0,
+      "eligible": 1500
+    },
+    "esconv": {
+      "input": 1300,
+      "filtered_or_duplicate": 0,
+      "eligible": 1300
+    },
+    "annomi": {
+      "input": 133,
+      "filtered_or_duplicate": 0,
+      "eligible": 133
+    },
+    "prefix_limit": {
+      "max_turns": 64,
+      "clipped": 0
+    }
+  }
+}

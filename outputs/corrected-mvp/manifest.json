@@ -1,0 +1,61 @@
+{
+  "created_utc": "2026-11-11T16:03:42.879816+00:00",
+  "config": {
+    "mode": "corrected-mvp",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "epochs": 30,
+    "threads": 4,
+    "skip_text": false,
+    "prepare_only": false
+  },
+  "base": "67cddb6",
+  "git_head": "42f79b4e85e7340fce71d16b3a275fe7ee46de3c",
+  "git_branch": "rahul/investigation-rebuild",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "source_hashes": {
+    "build_report.py": "dd99d3741dfc0dbe65f92da71c5cbe03411fff938ebf6076af2f046418d86563",
+    "run_experiments.py": "340ca34d8d1f3d9de1cd3e457aac7927fc9542b894fa512f7ddccbbfda491be9",
+    "run_mvp.py": "f06dff2cb2986393afe9c147914658d157c5dc7c8eaf91e9f1fc180b0aa3b6bd",
+    "data\\external_data.py": "c4bb3dfca7a83d70167a033bbbdd09e386ca2cafe48ffa50f0cb6de89069a5b4",
+    "data\\generate_data.py": "30a3350d9e4b6c76095ad1aa746fa25196aea45f545362e1ccca59ae79b2e6a8",
+    "data\\investigation_data.py": "8b38a21a859dc04256a8148e36d66a8d4c55319b728ca779f6971e448cfd385a",
+    "data\\llm_backend.py": "bb8d01de744fb3f3f47e0180a811c8c3d634dea5ff9bf5c5fd9e94c0ef418b77",
+    "eval\\build_checkpoint_pdf.py": "9e2fa0f4ffd78429fd646656e02738648c4c0319458909fe08db3b58eaed5a58",
+    "eval\\evaluate.py": "b9e57d044e7d578a9fe5ef83477ae30b3bcf9588f9661c9ac6ad77e214e8c60d",
+    "eval\\summarize.py": "3aaee864a5fb7b8ac0047551c3a9762b189b11d26d899b16db3c8c8c5294d4ed",
+    "eval\\verify_outputs.py": "5631c6720d29d7bf855fd46cde410b99ef6d0ccf494c59033c3a4147a14d24d5",
+    "features\\cache.py": "5c397587378781a396f7cd8e77b17d4657dcd59185973c23ba6ca864f603e5e4",
+    "features\\emotion_features.py": "5c01a26915004f3ba3882f91aeb03bb8e6ec5d9d8dadf0fc4bd78db0febd5526",
+    "models\\baseline.py": "cdd1b1f406bf723f8f830f24464b60c8ac17916c0e23b7551af5c7c8b58723a4",
+    "models\\trajectory_model.py": "a9c49b222301e28a73e0d416b67f901fc044065f5f8ab110bd8dc82358ae77bd",
+    "tests\\test_integrity.py": "d7f148ad524e0df56efa0be3e56a2dc7be9db2ddb886f7e75949b224db6f0b5b"
+  },
+  "external_hashes": {
+    "annomi.json": "67b5cdc11d4b352d112f80efb4444eba9e41df763d31532375c21bfa00419c0c",
+    "enron_authorship_source.json": "b5199607f901e6837f5528902acf0b746fdb8ad5abec469b5f8fcb6d22915218",
+    "enron_main.json": "9275cdec310a19ca4fcd8fb4d128e5e0973b4fac6b495eddf874d57e343b6f12",
+    "esconv.json": "1a10fb01d5a4594f0976dab700f5469f83fe269de98998d598ccae15d68b0caf"
+  },
+  "dataset_hash": "618ee2ef609c700a7309e4344ae45b8ba82a599de8cacfd00a7dbca4dfe19dd0",
+  "models": {
+    "emotion": {
+      "model": "j-hartmann/emotion-english-distilroberta-base",
+      "revision": "0e1cd914e3d46199ed785853e12b57304e04178b",
+      "max_length": 256,
+      "cached_texts": 7371,
+      "truncated_texts": 37,
+      "inference": "CPU float32 eval, fixed batch size, deterministic torch"
+    },
+    "distilbert": {}
+  },
+  "calibration": "Synthetic legitimate validation only; conservative observed FPR, no population guarantee",
+  "limitations": [
+    "Controlled templates, no real scam test set",
+    "No completed human audit or LLM restyling",
+    "Frozen DistilBERT references are not fine-tuned models"
+  ]
+}

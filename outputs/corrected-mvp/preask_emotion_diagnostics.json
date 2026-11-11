@@ -1,0 +1,32 @@
+{
+  "test": {
+    "n_pairs": 45,
+    "mean_preask_emotion_L1": 0.49362911203733856,
+    "median_preask_emotion_L1": 0.41315285352175124
+  },
+  "test_heldout_both": {
+    "n_pairs": 12,
+    "mean_preask_emotion_L1": 0.253181684017909,
+    "median_preask_emotion_L1": 0.27199027880754634
+  },
+  "test_heldout_llm": {
+    "n_pairs": 12,
+    "mean_preask_emotion_L1": 0.47434796497319537,
+    "median_preask_emotion_L1": 0.45233989594271407
+  },
+  "test_heldout_pattern": {
+    "n_pairs": 12,
+    "mean_preask_emotion_L1": 0.15689611100743706,
+    "median_preask_emotion_L1": 0.16341757577611132
+  },
+  "train": {
+    "n_pairs": 75,
+    "mean_preask_emotion_L1": 0.552088575061747,
+    "median_preask_emotion_L1": 0.5001230834517628
+  },
+  "val": {
+    "n_pairs": 60,
+    "mean_preask_emotion_L1": 0.48054671560058426,
+    "median_preask_emotion_L1": 0.47471226393827237
+  }
+}

@@ -1,0 +1,642 @@
+[
+  {
+    "id": 430,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.37287819385528564
+  },
+  {
+    "id": 366,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.5095826983451843
+  },
+  {
+    "id": 358,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 4,
+    "max_score": 0.968917191028595
+  },
+  {
+    "id": 364,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.34708166122436523
+  },
+  {
+    "id": 378,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.43448251485824585
+  },
+  {
+    "id": 318,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.46889618039131165
+  },
+  {
+    "id": 376,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.6316578388214111
+  },
+  {
+    "id": 300,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.4397451877593994
+  },
+  {
+    "id": 316,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 5,
+    "max_score": 0.8603866696357727
+  },
+  {
+    "id": 330,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.4312654435634613
+  },
+  {
+    "id": 346,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.5425583720207214
+  },
+  {
+    "id": 390,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.46109697222709656
+  },
+  {
+    "id": 370,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.4371371269226074
+  },
+  {
+    "id": 334,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.4535197615623474
+  },
+  {
+    "id": 426,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.3251096308231354
+  },
+  {
+    "id": 420,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.29897841811180115
+  },
+  {
+    "id": 422,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.2641659677028656
+  },
+  {
+    "id": 428,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.3831765353679657
+  },
+  {
+    "id": 340,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 5,
+    "max_score": 0.9705449342727661
+  },
+  {
+    "id": 344,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.48520419001579285
+  },
+  {
+    "id": 394,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 5,
+    "max_score": 0.94046550989151
+  },
+  {
+    "id": 294,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 5,
+    "max_score": 0.8760162591934204
+  },
+  {
+    "id": 306,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 4,
+    "max_score": 0.8218346238136292
+  },
+  {
+    "id": 279,
+    "split": "test",
+    "kind": "false_positive",
+    "first_alert": 5,
+    "ask": null,
+    "max_score": 0.8650457262992859
+  },
+  {
+    "id": 282,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.6905086636543274
+  },
+  {
+    "id": 386,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 5,
+    "max_score": 0.9138429164886475
+  },
+  {
+    "id": 338,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 6,
+    "max_score": 0.9638437628746033
+  },
+  {
+    "id": 408,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.3884597420692444
+  },
+  {
+    "id": 362,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.37867310643196106
+  },
+  {
+    "id": 406,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.5566914677619934
+  },
+  {
+    "id": 308,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.5677022337913513
+  },
+  {
+    "id": 410,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.39826667308807373
+  },
+  {
+    "id": 402,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.6674615740776062
+  },
+  {
+    "id": 414,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.3211748003959656
+  },
+  {
+    "id": 286,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 4,
+    "max_score": 0.8903870582580566
+  },
+  {
+    "id": 284,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.6628730893135071
+  },
+  {
+    "id": 354,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.4611813426017761
+  },
+  {
+    "id": 356,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 5,
+    "max_score": 0.9591652750968933
+  },
+  {
+    "id": 382,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.4755399227142334
+  },
+  {
+    "id": 310,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.5961523056030273
+  },
+  {
+    "id": 278,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 4,
+    "max_score": 0.8451822400093079
+  },
+  {
+    "id": 368,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.46291276812553406
+  },
+  {
+    "id": 396,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 5,
+    "max_score": 0.9301489591598511
+  },
+  {
+    "id": 292,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 5,
+    "max_score": 0.9466463327407837
+  },
+  {
+    "id": 392,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.28244200348854065
+  },
+  {
+    "id": 418,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.5816367864608765
+  },
+  {
+    "id": 360,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.5438754558563232
+  },
+  {
+    "id": 320,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.6494821906089783
+  },
+  {
+    "id": 416,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.46340882778167725
+  },
+  {
+    "id": 287,
+    "split": "test",
+    "kind": "false_positive",
+    "first_alert": 5,
+    "ask": null,
+    "max_score": 0.8016782999038696
+  },
+  {
+    "id": 348,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 5,
+    "max_score": 0.9632145762443542
+  },
+  {
+    "id": 290,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 5,
+    "max_score": 0.9229570627212524
+  },
+  {
+    "id": 400,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 5,
+    "max_score": 0.8486954569816589
+  },
+  {
+    "id": 280,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 7,
+    "ask": 6,
+    "max_score": 0.822075605392456
+  },
+  {
+    "id": 412,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.5160161256790161
+  },
+  {
+    "id": 314,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.5572060346603394
+  },
+  {
+    "id": 272,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 6,
+    "max_score": 0.9361885786056519
+  },
+  {
+    "id": 328,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.6492740511894226
+  },
+  {
+    "id": 404,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.5802373290061951
+  },
+  {
+    "id": 388,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 4,
+    "max_score": 0.832346498966217
+  },
+  {
+    "id": 326,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.6886557340621948
+  },
+  {
+    "id": 304,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 5,
+    "max_score": 0.9138798117637634
+  },
+  {
+    "id": 270,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.6823322176933289
+  },
+  {
+    "id": 380,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.5537283420562744
+  },
+  {
+    "id": 352,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 5,
+    "max_score": 0.963371992111206
+  },
+  {
+    "id": 302,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 4,
+    "max_score": 0.927124559879303
+  },
+  {
+    "id": 424,
+    "split": "test_heldout_both",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.286559134721756
+  },
+  {
+    "id": 336,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.5673040747642517
+  },
+  {
+    "id": 288,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 5,
+    "ask": 5,
+    "max_score": 0.963983416557312
+  },
+  {
+    "id": 372,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 4,
+    "max_score": 0.5686324238777161
+  },
+  {
+    "id": 273,
+    "split": "test",
+    "kind": "false_positive",
+    "first_alert": 7,
+    "ask": null,
+    "max_score": 0.8746790885925293
+  },
+  {
+    "id": 296,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 6,
+    "ask": 5,
+    "max_score": 0.8565817475318909
+  },
+  {
+    "id": 276,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.5523514747619629
+  },
+  {
+    "id": 324,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": 7,
+    "ask": 6,
+    "max_score": 0.9207993149757385
+  },
+  {
+    "id": 350,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.47286632657051086
+  },
+  {
+    "id": 322,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.7129977345466614
+  },
+  {
+    "id": 312,
+    "split": "test",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 6,
+    "max_score": 0.45452412962913513
+  },
+  {
+    "id": 398,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.5545870661735535
+  },
+  {
+    "id": 384,
+    "split": "test_heldout_llm",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.595340371131897
+  },
+  {
+    "id": 374,
+    "split": "test_heldout_pattern",
+    "kind": "late_or_missed",
+    "first_alert": null,
+    "ask": 5,
+    "max_score": 0.5062702298164368
+  }
+]

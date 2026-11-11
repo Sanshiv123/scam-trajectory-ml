@@ -1,0 +1,202 @@
+{
+  "ablation/no-delta": {
+    "test": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": -0.05138888888888882,
+      "auc_difference_ci95": [
+        -0.08695833333333337,
+        -0.021937499999999995
+      ],
+      "early_recall_difference": 0.0,
+      "early_recall_difference_ci95": [
+        0.0,
+        0.0
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    },
+    "test_heldout_pattern": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": 0.00694444444444442,
+      "auc_difference_ci95": [
+        -0.020833333333333263,
+        0.05733506944444442
+      ],
+      "early_recall_difference": 0.0,
+      "early_recall_difference_ci95": [
+        0.0,
+        0.0
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    },
+    "test_slow": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": -0.0590277777777779,
+      "auc_difference_ci95": [
+        -0.098763888888889,
+        -0.017197916666666823
+      ],
+      "early_recall_difference": 0.38333333333333336,
+      "early_recall_difference_ci95": [
+        0.26625000000000004,
+        0.5
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    }
+  },
+  "ablation/no-speaker": {
+    "test": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": 0.012222222222222356,
+      "auc_difference_ci95": [
+        -0.01140277777777778,
+        0.0352916666666664
+      ],
+      "early_recall_difference": 0.0,
+      "early_recall_difference_ci95": [
+        0.0,
+        0.0
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    },
+    "test_heldout_pattern": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": 0.01041666666666663,
+      "auc_difference_ci95": [
+        -0.017404513888888876,
+        0.04166666666666663
+      ],
+      "early_recall_difference": 0.0,
+      "early_recall_difference_ci95": [
+        0.0,
+        0.0
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    },
+    "test_slow": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": 0.04472222222222211,
+      "auc_difference_ci95": [
+        0.006930555555555535,
+        0.08447916666666662
+      ],
+      "early_recall_difference": 0.0,
+      "early_recall_difference_ci95": [
+        -0.08333333333333333,
+        0.08333333333333333
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    }
+  },
+  "investigation/shuffled-prefix": {
+    "test": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": -0.05138888888888882,
+      "auc_difference_ci95": [
+        -0.10334027777777784,
+        -0.008319444444444424
+      ],
+      "early_recall_difference": 0.0,
+      "early_recall_difference_ci95": [
+        0.0,
+        0.0
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    },
+    "test_heldout_pattern": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": -0.003472222222222321,
+      "auc_difference_ci95": [
+        -0.048697916666666764,
+        0.06076388888888884
+      ],
+      "early_recall_difference": 0.0,
+      "early_recall_difference_ci95": [
+        0.0,
+        0.0
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    },
+    "test_slow": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": -0.17708333333333343,
+      "auc_difference_ci95": [
+        -0.2561562500000001,
+        -0.10693749999999996
+      ],
+      "early_recall_difference": -0.11666666666666667,
+      "early_recall_difference_ci95": [
+        -0.2504166666666666,
+        0.016666666666666666
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    }
+  },
+  "investigation/preask-label": {
+    "test": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": -0.00694444444444442,
+      "auc_difference_ci95": [
+        -0.03419444444444456,
+        0.018895833333333282
+      ],
+      "early_recall_difference": 0.0,
+      "early_recall_difference_ci95": [
+        0.0,
+        0.0
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    },
+    "test_heldout_pattern": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": 0.01388888888888884,
+      "auc_difference_ci95": [
+        -0.0017361111111111605,
+        0.05208333333333326
+      ],
+      "early_recall_difference": 0.0,
+      "early_recall_difference_ci95": [
+        0.0,
+        0.0
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    },
+    "test_slow": {
+      "direction": "candidate minus full GRU",
+      "n_bootstrap": 400,
+      "unit": "matched scenario pair",
+      "auc_difference": 0.03249999999999986,
+      "auc_difference_ci95": [
+        -0.02863888888888881,
+        0.09168055555555545
+      ],
+      "early_recall_difference": 0.38333333333333336,
+      "early_recall_difference_ci95": [
+        0.25,
+        0.5
+      ],
+      "limitation": "Conditional on seed 0 fits and thresholds; does not include calibration or training uncertainty. Exploratory, no multiplicity adjustment."
+    }
+  }
+}

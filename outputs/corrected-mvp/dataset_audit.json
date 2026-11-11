@@ -1,0 +1,16 @@
+{
+  "validation": {
+    "n": 432,
+    "splits": {
+      "test_heldout_both": 24,
+      "val": 120,
+      "test_heldout_pattern": 24,
+      "train": 150,
+      "test": 90,
+      "test_heldout_llm": 24
+    },
+    "templates": true,
+    "human_realism_audit_completed": false
+  },
+  "real": {}
+}
