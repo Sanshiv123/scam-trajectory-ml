@@ -1,0 +1,9 @@
+*.pdf binary
+*.png binary
+*.npz binary
+*.pt binary
+*.joblib binary
+*.zip binary
+# Preserve byte-level hashes and binary PDF offsets across platforms.
+outputs/** -text
+output/** -text
