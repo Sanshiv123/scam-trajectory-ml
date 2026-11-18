@@ -1,0 +1,944 @@
+{
+  "summary": {
+    "n_missed": 60,
+    "n_with_zero_preask_difference": 0,
+    "n_with_content_difference_pre_ask": 60,
+    "mean_differing_turns": 1.25,
+    "differing_phase_counts": {
+      "urgency": 15,
+      "authority": 60
+    }
+  },
+  "rows": [
+    {
+      "conv_id": 360,
+      "pattern": "executive_wire_request",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        8,
+        10
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8196373581886292
+    },
+    {
+      "conv_id": 364,
+      "pattern": "executive_wire_request",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7894393801689148
+    },
+    {
+      "conv_id": 368,
+      "pattern": "executive_wire_request",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8149711489677429
+    },
+    {
+      "conv_id": 372,
+      "pattern": "executive_wire_request",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        4,
+        6
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7398250102996826
+    },
+    {
+      "conv_id": 376,
+      "pattern": "executive_wire_request",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8283240795135498
+    },
+    {
+      "conv_id": 380,
+      "pattern": "executive_wire_request",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        6,
+        8
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8359516859054565
+    },
+    {
+      "conv_id": 384,
+      "pattern": "executive_wire_request",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        10
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.826766848564148
+    },
+    {
+      "conv_id": 388,
+      "pattern": "executive_wire_request",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7970349788665771
+    },
+    {
+      "conv_id": 392,
+      "pattern": "executive_wire_request",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        6,
+        8
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8010919094085693
+    },
+    {
+      "conv_id": 396,
+      "pattern": "executive_wire_request",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8058293461799622
+    },
+    {
+      "conv_id": 400,
+      "pattern": "executive_wire_request",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        6
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7682584524154663
+    },
+    {
+      "conv_id": 404,
+      "pattern": "executive_wire_request",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7744972705841064
+    },
+    {
+      "conv_id": 408,
+      "pattern": "executive_wire_request",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        8
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7812625169754028
+    },
+    {
+      "conv_id": 412,
+      "pattern": "executive_wire_request",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        6
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7971773743629456
+    },
+    {
+      "conv_id": 416,
+      "pattern": "executive_wire_request",
+      "ask_idx": 14,
+      "n_pre_ask_turns": 14,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        10,
+        12
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8316652178764343
+    },
+    {
+      "conv_id": 420,
+      "pattern": "executive_wire_request",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        8
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8228307366371155
+    },
+    {
+      "conv_id": 424,
+      "pattern": "executive_wire_request",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        10
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8251937031745911
+    },
+    {
+      "conv_id": 428,
+      "pattern": "executive_wire_request",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        8,
+        10
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.786675751209259
+    },
+    {
+      "conv_id": 432,
+      "pattern": "executive_wire_request",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7520774006843567
+    },
+    {
+      "conv_id": 436,
+      "pattern": "executive_wire_request",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7669160962104797
+    },
+    {
+      "conv_id": 440,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        10
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7876012921333313
+    },
+    {
+      "conv_id": 444,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7984266877174377
+    },
+    {
+      "conv_id": 448,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7935444712638855
+    },
+    {
+      "conv_id": 452,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        10
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8001635074615479
+    },
+    {
+      "conv_id": 456,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8074665069580078
+    },
+    {
+      "conv_id": 460,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        8
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8146768808364868
+    },
+    {
+      "conv_id": 464,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        6
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8016941547393799
+    },
+    {
+      "conv_id": 468,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7055605053901672
+    },
+    {
+      "conv_id": 472,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 14,
+      "n_pre_ask_turns": 14,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        10,
+        12
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8146811723709106
+    },
+    {
+      "conv_id": 476,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.811835765838623
+    },
+    {
+      "conv_id": 480,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        8
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7934932708740234
+    },
+    {
+      "conv_id": 484,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        4,
+        6
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.804455578327179
+    },
+    {
+      "conv_id": 488,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7951210141181946
+    },
+    {
+      "conv_id": 492,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        8
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7722925543785095
+    },
+    {
+      "conv_id": 496,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7730206251144409
+    },
+    {
+      "conv_id": 500,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        4,
+        6
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7783533334732056
+    },
+    {
+      "conv_id": 504,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 14,
+      "n_pre_ask_turns": 14,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        10,
+        12
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8073954582214355
+    },
+    {
+      "conv_id": 508,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7746410369873047
+    },
+    {
+      "conv_id": 512,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        6,
+        8
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8151977062225342
+    },
+    {
+      "conv_id": 516,
+      "pattern": "vendor_bank_detail_change",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7996069192886353
+    },
+    {
+      "conv_id": 520,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        10
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7881714701652527
+    },
+    {
+      "conv_id": 524,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        8
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7841448187828064
+    },
+    {
+      "conv_id": 528,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        8
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7959402203559875
+    },
+    {
+      "conv_id": 532,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        8,
+        10
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8010562062263489
+    },
+    {
+      "conv_id": 536,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        4,
+        6
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.723522961139679
+    },
+    {
+      "conv_id": 540,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8125914335250854
+    },
+    {
+      "conv_id": 544,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        4,
+        6
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7972997426986694
+    },
+    {
+      "conv_id": 548,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7710902690887451
+    },
+    {
+      "conv_id": 552,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7103787064552307
+    },
+    {
+      "conv_id": 556,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        10
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7954434156417847
+    },
+    {
+      "conv_id": 560,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        6
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8148925304412842
+    },
+    {
+      "conv_id": 564,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 10,
+      "n_pre_ask_turns": 10,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        8
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7776216268539429
+    },
+    {
+      "conv_id": 568,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 6,
+      "n_pre_ask_turns": 6,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        4
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7281467914581299
+    },
+    {
+      "conv_id": 572,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 2,
+      "differing_turn_indices": [
+        8,
+        10
+      ],
+      "differing_phases": [
+        "urgency",
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7957150340080261
+    },
+    {
+      "conv_id": 576,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 14,
+      "n_pre_ask_turns": 14,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        12
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.788499116897583
+    },
+    {
+      "conv_id": 580,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7211766242980957
+    },
+    {
+      "conv_id": 584,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7480171918869019
+    },
+    {
+      "conv_id": 588,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 4,
+      "n_pre_ask_turns": 4,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        2
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.7445148825645447
+    },
+    {
+      "conv_id": 592,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 12,
+      "n_pre_ask_turns": 12,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        10
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8046574592590332
+    },
+    {
+      "conv_id": 596,
+      "pattern": "it_helpdesk_vishing",
+      "ask_idx": 8,
+      "n_pre_ask_turns": 8,
+      "n_differing_turns_pre_ask": 1,
+      "differing_turn_indices": [
+        6
+      ],
+      "differing_phases": [
+        "authority"
+      ],
+      "phase_sequence_differs": false,
+      "max_score": 0.8145335912704468
+    }
+  ]
+}

@@ -22,6 +22,7 @@ models/
 eval/
   evaluate.py             Calibration, FPR, AUC and early-warning metrics
   verify_outputs.py       Recompute metrics from persisted predictions
+  preask_divergence_audit.py  Pre-ask content audit: missed scams vs. matched twins (final submission)
 experiments/
   config.py               Typed, validated settings
   datasets.py             Assemble the configured train/calibration/test pools

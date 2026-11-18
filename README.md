@@ -10,6 +10,12 @@ Read [PROJECT_STATUS.md](PROJECT_STATUS.md) for the current scientific assessmen
 and [ARCHITECTURE.md](ARCHITECTURE.md) for the code layout. The model's weak results
 are preserved as evidence; restructuring the code does not improve those metrics.
 
+This branch (`sanchu/final-submission`) is the final project submission. It adds
+a new audit answering the Nov 16 checkpoint feedback (`eval/preask_divergence_audit.py`,
+output in `outputs/investigation/preask_divergence_audit.json`) and the final report
+(`FINAL_REPORT.md` / `output/pdf/FINAL_REPORT.pdf`), on top of the investigation
+checkpoint rebuilt below. Start with `FINAL_REPORT.md` for the project's conclusions.
+
 ## Setup and commands
 
 Use Python 3.12 and an isolated environment. On Windows PowerShell:
@@ -60,6 +66,11 @@ install with `pip install -e ".[report]"` if not using the bundled artifact runt
 - `human_audit_PENDING.csv` is an unfilled worksheet, not completed annotations.
 - The root-level October PDF and `outputs/report.txt` / original plots are
   **archival results with the old evaluation**, retained for comparison only.
+- `FINAL_REPORT.md` / `output/pdf/FINAL_REPORT.pdf`: the final submission report —
+  full project arc, results, and the new pre-ask divergence audit.
+- `eval/preask_divergence_audit.py` / `outputs/investigation/preask_divergence_audit.json`:
+  per-conversation audit of every missed scam against its matched legitimate twin,
+  answering the Nov 16 feedback's specific audit request.
 
 The completed results in `outputs/corrected-mvp/` and `outputs/investigation/`
 remain immutable through the code refactor. Their source snapshots describe the
